@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Wethm.SplashScreen" parent="Theme.Wethm">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="postSplashScreenTheme">@style/Theme.Wethm</item>
+    </style>
+    <style name="Theme.Wethm" parent="android:Theme.Material.Light.NoActionBar" >
+        
+    </style>
+</resources>
