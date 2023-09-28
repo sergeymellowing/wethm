@@ -92,3 +92,18 @@ val defaultTextGradient = listOf(
     Color(0xFF0B8DFF),
     Color(0xFF0066FF)
 )
+
+val pageGradient = listOf(
+    Color(0xFFFFFFFF),
+    Color(0xFFECF6FF),
+)
+
+val gradient = listOf(
+    Color(0xFFD70F27),
+    Color(0xFFD70F27),
+    Color(0xFFFC6371),
+    Color(0xFF0B8DFF),
+    Color(0xFF3BFFE5),
+    Color(0xFF10E9EF),
+    Color(0xFF07B5EC)
+)
