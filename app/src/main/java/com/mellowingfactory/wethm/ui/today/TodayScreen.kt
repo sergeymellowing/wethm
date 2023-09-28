@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,6 +29,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,8 +58,33 @@ import com.mellowingfactory.wethm.ui.theme.pageGradient
 
 @Composable
 fun TodayScreen() {
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .background(Color.Blue)
+        ) {
+            Text(text = "TempToolbar")
+        }
+        Box {
+            Content()
+            CustomBottomSheet()
+
+        }
+
+
+    }
+
+}
+
+
+@Composable
+private fun Content() {
     Column(
         modifier = Modifier
+            .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
                     colors = pageGradient
@@ -155,10 +182,6 @@ fun TodayScreen() {
         }
 
     }
-
-    CustomBottomSheet()
-
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -166,8 +189,8 @@ fun TodayScreen() {
 fun CustomBottomSheet() {
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberBottomSheetScaffoldState()
-
     BottomSheetScaffold(
+        modifier = Modifier,
         scaffoldState = scaffoldState,
         sheetPeekHeight = 64.dp,
         sheetContainerColor = Color.White,
@@ -178,7 +201,7 @@ fun CustomBottomSheet() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
-                    .padding(top = 24.dp),
+                    .padding(top = 24.dp, bottom = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -454,7 +477,7 @@ fun CustomBottomSheet() {
                     Box(modifier = Modifier.weight(1f))
                 }
 
-                Spacer(modifier = Modifier.padding(40.dp))
+                Spacer(modifier = Modifier.padding(100.dp))
             }
         }) {}
 
