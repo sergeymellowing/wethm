@@ -9,4 +9,5 @@ object RootRoutes {
     const val DEVICE_ONBOARDING = "deviceOnboarding"
     const val ALARM_TIME = "alarmTime"
     const val SESSION = "session"
+    const val TODAY = "today"
 }

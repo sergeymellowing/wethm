@@ -21,9 +21,9 @@ class RootViewModel(
     private val stateNavigation = MutableStateFlow(RootNavigationState())
 
     init {
-        recheckAndGetRoute { route ->
-            controller.navigateAndClear(route)
-        }
+//        recheckAndGetRoute { route ->
+//            controller.navigateAndClear(route)
+//        }
     }
 
     private fun checkState(onReady: () -> Unit){
