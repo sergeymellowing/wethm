@@ -54,6 +54,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.Font
@@ -407,8 +408,7 @@ fun CustomBottomSheet(state: TodayState) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Attributes",
-
+                    text = stringResource(id = R.string.TODAY_ATTRIBUTES),
                     // Contents title
                     style = TextStyle(
                         fontSize = 20.sp,
@@ -462,7 +462,7 @@ fun CustomBottomSheet(state: TodayState) {
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
                             Text(
-                                text = "Cumulative Debt/Surplus",
+                                text = stringResource(id = R.string.TODAY_DEBT_SUR),
                                 // Contents sub title
                                 style = TextStyle(
                                     fontSize = 17.sp,
@@ -473,7 +473,7 @@ fun CustomBottomSheet(state: TodayState) {
                             )
 
                             Text(
-                                text = "last 7 days",
+                                text = stringResource(id = R.string.TODAY_LAST7),
 
                                 // Contents sub title (info)
                                 style = TextStyle(
@@ -604,7 +604,7 @@ fun CustomBottomSheet(state: TodayState) {
                         ) {
                             Text(
                                 modifier = Modifier.align(Alignment.Center),
-                                text = "Optimal zone",
+                                text = stringResource(id = R.string.OPTIMAL_ZONE),
                                 style = TextStyle(
                                     fontSize = 14.sp,
                                     fontFamily = FontFamily(Font(R.font.pretendard_regular)),
@@ -626,7 +626,7 @@ fun CustomBottomSheet(state: TodayState) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Vitals and Environment",
+                        text = stringResource(id = R.string.TODAY_VIT_N_ENV),
 
                         // Contents sub title
                         style = TextStyle(
@@ -638,7 +638,7 @@ fun CustomBottomSheet(state: TodayState) {
                     )
 
                     Text(
-                        text = "last sleep",
+                        text = stringResource(id = R.string.TODAY_LAST_SLEEP),
 
                         // Contents sub title (info)
                         style = TextStyle(
