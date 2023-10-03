@@ -1,9 +1,12 @@
 package com.mellowingfactory.wethm.ui.today
 
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.mellowingfactory.wethm.R
+import com.mellowingfactory.wethm.ui.theme.blue400
 import com.mellowingfactory.wethm.ui.theme.blue50
 import com.mellowingfactory.wethm.ui.theme.blue_stripes
+import com.mellowingfactory.wethm.ui.theme.green300
 import com.mellowingfactory.wethm.ui.theme.red100
 import com.mellowingfactory.wethm.ui.theme.red500
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,8 +16,8 @@ class TodayViewModel : ViewModel() {
     val state = MutableStateFlow(
         TodayState(
             hour = "2H 18M",
-            currentState = "Debt",
-            currentStateColor = red500,
+            currentStatus = currentStatus(12),
+            currentStatusColor = currentStatusColor(12),
             vitals = vitals(
                 heartMinValue = 5,
                 heartMaxValue = 1,
@@ -25,7 +28,8 @@ class TodayViewModel : ViewModel() {
                 noiseValue = 6
             ),
             weekGraphic = listOf(80F, 70F, 70F, 90F, 70F),
-            todayGraphic = listOf(90F, 90F, 80F, 80F, 70F)
+            todayGraphic = listOf(90F, 90F, 80F, 80F, 70F),
+
         )
     )
 
@@ -43,6 +47,19 @@ class TodayViewModel : ViewModel() {
                 TodayStatus.TooShort -> TodayStatus.Active()
             }
         )
+    }
+
+    private fun currentStatusColor(value: Int): Color {
+        return if (value < -30) red500
+        else if (value > 30) green300
+        else blue400
+    }
+
+
+    private fun currentStatus(value: Int): Int {
+        return if (value < -30) R.string.DEBT
+        else if (value > 30) R.string.SURPLUS
+        else R.string.OPTIMAL
     }
 
 

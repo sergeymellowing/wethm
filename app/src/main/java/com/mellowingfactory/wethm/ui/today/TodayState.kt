@@ -4,19 +4,36 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import com.mellowingfactory.wethm.R
+import com.mellowingfactory.wethm.ui.theme.blue10
+import com.mellowingfactory.wethm.ui.theme.blue500
+import com.mellowingfactory.wethm.ui.theme.red500
+import com.mellowingfactory.wethm.ui.theme.yellow100
+import com.mellowingfactory.wethm.ui.theme.yellow500
 
 data class TodayState(
     val status: TodayStatus = TodayStatus.None,
     val vitals: List<VitalAndEnvironment>,
     val hour: String,
-    val currentState: String,
-    val currentStateColor: Color,
+    val currentStatus: Int,
+    val currentStatusColor: Color,
     val weekGraphic: List<Float>,
+
     val todayGraphic: List<Float>,
 
     val todayAvg: Int = weekGraphic.average().toInt(),
+    val todayGraphicColor: Color = todayColor(todayAvg),
     val weekAvgDif: Int = todayGraphic.average().toInt() - weekGraphic.average().toInt(),
 )
+
+private fun todayColor(value: Int): Color {
+    return if (value > 79) {
+        blue500.copy(alpha = 0.33f)
+    } else if (value > 60) {
+        yellow500.copy(alpha = 0.33f)
+    } else {
+        red500.copy(alpha = 0.33f)
+    }
+}
 
 
 class VitalAndEnvironment(

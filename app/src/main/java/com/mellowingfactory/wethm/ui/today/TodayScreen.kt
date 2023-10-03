@@ -132,7 +132,7 @@ private fun MySleepContainer(state: TodayState) {
             .drawWithContent {
                 PolygramText(textMeasurer)
             }) {
-            Graphics(state.todayGraphic, state.weekGraphic)
+            Graphics(state.todayGraphicColor, state.todayGraphic, state.weekGraphic)
             ConstraintLayout(modifier = Modifier.align(Alignment.Center)) {
                 val (number, percent, diff) = createRefs()
                 Text(

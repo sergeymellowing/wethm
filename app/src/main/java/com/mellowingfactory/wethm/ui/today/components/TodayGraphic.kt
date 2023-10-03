@@ -35,7 +35,12 @@ import com.mellowingfactory.wethm.ui.today.polygamy
 import com.mellowingfactory.wethm.ui.today.polygamyPoints
 
 @Composable
-fun BoxScope.Graphics(todayGraphic: List<Float>, weekGraphic: List<Float>, boxSize: Int = 250) {
+fun BoxScope.Graphics(
+    todayColor: Color,
+    todayGraphic: List<Float>,
+    weekGraphic: List<Float>,
+    boxSize: Int = 250
+) {
 
     for (j in 1..5) {
         Canvas(
@@ -86,7 +91,7 @@ fun BoxScope.Graphics(todayGraphic: List<Float>, weekGraphic: List<Float>, boxSi
                         shape = PolyShape(5, width, todayGraphic)
                         clip = true
                     }
-                    .background(Color(0x33F4364C))
+                    .background(todayColor)
 
             )
         }

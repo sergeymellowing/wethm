@@ -168,17 +168,17 @@ fun TodayBottomSheet(state: TodayState) {
                                 .padding(top = 22.dp, start = 22.dp)
                                 .border(
                                     width = 1.dp,
-                                    color = state.currentStateColor,
+                                    color = state.currentStatusColor,
                                     shape = RoundedCornerShape(size = 16.dp)
                                 )
                                 .padding(start = 10.dp, top = 4.dp, end = 10.dp, bottom = 4.dp)
                         ) {
                             Text(
-                                text = state.currentState, style = TextStyle(
+                                text = stringResource(id = state.currentStatus), style = TextStyle(
                                     fontSize = 14.sp,
                                     fontFamily = FontFamily(Font(R.font.pretendard_medium)),
                                     fontWeight = FontWeight(500),
-                                    color = state.currentStateColor,
+                                    color = state.currentStatusColor,
                                     textAlign = TextAlign.Center,
                                 )
                             )
