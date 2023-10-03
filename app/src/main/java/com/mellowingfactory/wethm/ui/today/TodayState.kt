@@ -3,6 +3,9 @@ package com.mellowingfactory.wethm.ui.today
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import com.mellowingfactory.wethm.R
+import com.mellowingfactory.wethm.ui.theme.blue50
+import com.mellowingfactory.wethm.ui.theme.blue_stripes
+import com.mellowingfactory.wethm.ui.theme.red500
 
 data class TodayState(
     val status: TodayStatus = TodayStatus.None,
@@ -11,42 +14,42 @@ data class TodayState(
             type = "Heart Rate",
             valueStr = "48-77 Bpm",
             iconId = R.drawable.ic_heart,
-            iconColor = Color(0xFF53AEFF),
-            borderColor = Color(0xFFD0E9FF),
+            iconColor = blue_stripes,
+            borderColor = blue50,
 
             ),
         VitalAndEnvironment(
             type = "Breathing Rate",
             valueStr = "12-19 Bpm",
             iconId = R.drawable.ic_lungs,
-            iconColor = Color(0xFF53AEFF),
-            borderColor = Color(0xFFD0E9FF),
+            iconColor = blue_stripes,
+            borderColor = blue50,
         ),
         VitalAndEnvironment(
             type = "Temperature",
             valueStr = "81.9°F",
             iconId = R.drawable.ic_temperature_max,
-            iconColor = Color(0xFFF4364C),
-            borderColor = Color(0xFFD0E9FF),
+            iconColor = red500,
+            borderColor = blue50,
         ),
         VitalAndEnvironment(
             type = "Humidity",
             valueStr = "15.2%",
             iconId = R.drawable.ic_humidity_normal,
-            iconColor = Color(0xFF53AEFF),
-            borderColor = Color(0xFFD0E9FF),
+            iconColor = blue_stripes,
+            borderColor = blue50,
         ),
         VitalAndEnvironment(
             type = "Noise",
             valueStr = "12dB",
             iconId = R.drawable.ic_noise_normal,
-            iconColor = Color(0xFF53AEFF),
-            borderColor = Color(0xFFD0E9FF),
+            iconColor = blue_stripes,
+            borderColor = blue50,
         )
     ),
     val hour: String = "2H 18M",
     val currentState: String = "Debt",
-    val currentStateColor: Color = Color(0xFFF4364C)
+    val currentStateColor: Color = red500
 
 )
 

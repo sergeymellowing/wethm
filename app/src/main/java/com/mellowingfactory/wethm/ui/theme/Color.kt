@@ -24,12 +24,17 @@ val blue_gradient3 = Color(0xFF0066FF)
 val blue_lifestyle_bg = Color(0xFF3863ED)
 val blue_shadow2 = Color(0xFF3DFFE8)
 val blue_stripes = Color(0xFF53AEFF)
+val gr = Color(0xFF91ACC5)
 
 val gray10 = Color(0xFFF5F5F6)
+val gray15 = Color(0xFFECF6FF)
+val gray20 = Color(0xFFD2D6DC)
 val gray50 = Color(0xFFE1E4E9)
 val gray100 = Color(0xFFD2D5DC)
+val gray150 = Color(0xFFBCC2CA)
 val gray200 = Color(0xFFBBC2C9)
 val gray300 = Color(0xFFA7ADB8)
+val gray320 = Color(0xFFA7AEB9)
 val gray400 = Color(0xFF929BA9)
 val gray500 = Color(0xFF7D8899)
 val gray600 = Color(0xFF6C7584)
@@ -38,6 +43,7 @@ val gray800 = Color(0xFF4B515C)
 val gray900 = Color(0xFF3C424A)
 val gray1000 = Color(0xFF2D3037)
 val gray1100 = Color(0xFF121212)
+
 
 val green10 = Color(0xFFDDFFFA)
 val green50 = Color(0xFFB5FFF5)
@@ -107,3 +113,5 @@ val gradient = listOf(
     Color(0xFF10E9EF),
     Color(0xFF07B5EC)
 )
+
+

@@ -66,8 +66,24 @@ import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mellowingfactory.wethm.R
+import com.mellowingfactory.wethm.ui.theme.blue200
+import com.mellowingfactory.wethm.ui.theme.gr
 import com.mellowingfactory.wethm.ui.theme.gradient
+import com.mellowingfactory.wethm.ui.theme.gray1000
+import com.mellowingfactory.wethm.ui.theme.gray1100
+import com.mellowingfactory.wethm.ui.theme.gray15
+import com.mellowingfactory.wethm.ui.theme.gray150
+import com.mellowingfactory.wethm.ui.theme.gray20
+import com.mellowingfactory.wethm.ui.theme.gray320
+import com.mellowingfactory.wethm.ui.theme.gray400
+import com.mellowingfactory.wethm.ui.theme.gray500
+import com.mellowingfactory.wethm.ui.theme.gray600
+import com.mellowingfactory.wethm.ui.theme.gray800
+import com.mellowingfactory.wethm.ui.theme.gray900
+import com.mellowingfactory.wethm.ui.theme.green400
 import com.mellowingfactory.wethm.ui.theme.pageGradient
+import com.mellowingfactory.wethm.ui.theme.red600
+import com.mellowingfactory.wethm.ui.theme.white
 
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -129,7 +145,7 @@ private fun Header(currentPage: Int) {
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.pretendard_medium)),
             fontWeight = FontWeight(500),
-            color = Color(0xFFA7AEB9),
+            color = gray320,
             textAlign = TextAlign.Center,
         )
     )
@@ -143,7 +159,7 @@ private fun Header(currentPage: Int) {
             fontSize = 24.sp,
             fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
             fontWeight = FontWeight(600),
-            color = Color(0xFF121212),
+            color = gray1100,
             textAlign = TextAlign.Center,
         )
     )
@@ -158,9 +174,9 @@ private fun Header(currentPage: Int) {
         horizontalArrangement = Arrangement.Center
     ) {
         val harmony =
-            if (currentPage == 0) Color(0xFF121212) else Color(0xFFBCC2CA)
+            if (currentPage == 0) gray1100 else gray150
         val sleep =
-            if (currentPage == 1) Color(0xFF121212) else Color(0xFFBCC2CA)
+            if (currentPage == 1) gray1100 else gray150
         Box(
             modifier = Modifier
                 .height(3.dp)
@@ -285,7 +301,7 @@ private fun Content(state: TodayState) {
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
                 fontWeight = FontWeight(600),
-                color = Color(0xFFA7AEB9),
+                color = gray320,
                 textAlign = TextAlign.Center,
             )
         )
@@ -295,7 +311,7 @@ private fun Content(state: TodayState) {
                 fontSize = 32.sp,
                 fontFamily = FontFamily(Font(R.font.pretendard_bold)),
                 fontWeight = FontWeight(700),
-                color = Color(0xFF2D3037),
+                color = gray1000,
                 textAlign = TextAlign.Center,
             )
         )
@@ -305,7 +321,7 @@ private fun Content(state: TodayState) {
                 fontSize = 20.sp,
                 fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
                 fontWeight = FontWeight(600),
-                color = Color(0xFF7D8899),
+                color = gray500,
                 textAlign = TextAlign.Center,
             )
         )
@@ -319,7 +335,7 @@ private fun Content(state: TodayState) {
                     lineHeight = 22.sp,
                     fontFamily = FontFamily(Font(R.font.pretendard_regular)),
                     fontWeight = FontWeight(400),
-                    color = Color(0xFFA7AEB9),
+                    color = gray320,
                     textAlign = TextAlign.Center,
                 )
             )
@@ -359,10 +375,10 @@ private fun BoxScope.Graphics(boxSize: Int = 250) {
             val polygram = polygamy(width, center.x, center.y)
             drawPath(
                 path = polygram,
-                color = Color(0xFFD2D6DC),
+                color = gray20,
                 style = Stroke(width = 1f),
 //                    style = Fill
-//                    colorFilter = ColorFilter.tint(Color(0xFFD2D6DC)),
+//                    colorFilter = ColorFilter.tint(gray20),
 //                    blendMode = BlendMode.Color
             )
         }
@@ -378,7 +394,7 @@ fun CustomBottomSheet(state: TodayState) {
     BottomSheetScaffold(modifier = Modifier,
         scaffoldState = scaffoldState,
         sheetPeekHeight = 64.dp,
-        sheetContainerColor = Color.White,
+        sheetContainerColor = white,
         sheetShadowElevation = 24.dp,
         sheetShape = RoundedCornerShape(topStart = 22.dp, topEnd = 22.dp),
         sheetDragHandle = {
@@ -398,13 +414,13 @@ fun CustomBottomSheet(state: TodayState) {
                         fontSize = 20.sp,
                         fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
                         fontWeight = FontWeight(600),
-                        color = Color(0xFF2D3037),
+                        color = gray1000,
                     )
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.ic_info),
                     contentDescription = null,
-                    tint = Color(0xFFA7AEB9)
+                    tint = gray320
                 )
 
             }
@@ -420,14 +436,14 @@ fun CustomBottomSheet(state: TodayState) {
                 Card(
                     modifier = Modifier.shadow(
                         elevation = 32.dp,
-                        spotColor = Color(0xFF91ACC5),
-                        ambientColor = Color(0xFF91ACC5)
+                        spotColor = gr,
+                        ambientColor = gr
                     ),
-                    border = BorderStroke(1.dp, Color(0xFFECF6FF)),
+                    border = BorderStroke(1.dp, gray15),
                     shape = RoundedCornerShape(14.dp),
                     elevation = CardDefaults.cardElevation(0.dp, 0.dp, 0.dp, 0.dp, 0.dp, 0.dp),
                     colors = CardDefaults.cardColors(
-                        contentColor = Color(0xFFFFFFFF), containerColor = Color(0xFFFFFFFF)
+                        contentColor = white, containerColor = white
                     ),
 
 
@@ -452,7 +468,7 @@ fun CustomBottomSheet(state: TodayState) {
                                     fontSize = 17.sp,
                                     fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
                                     fontWeight = FontWeight(600),
-                                    color = Color(0xFF6C7584),
+                                    color = gray600,
                                 )
                             )
 
@@ -464,14 +480,14 @@ fun CustomBottomSheet(state: TodayState) {
                                     fontSize = 14.sp,
                                     fontFamily = FontFamily(Font(R.font.pretendard_regular)),
                                     fontWeight = FontWeight(400),
-                                    color = Color(0xFFBCC2CA),
+                                    color = gray150,
                                     textAlign = TextAlign.Right,
                                 )
                             )
 
                         }
 
-                        Divider(color = Color(0xFFECF6FF), modifier = Modifier.padding(top = 10.dp))
+                        Divider(color = gray15, modifier = Modifier.padding(top = 10.dp))
 
                         Box(
                             modifier = Modifier
@@ -501,7 +517,7 @@ fun CustomBottomSheet(state: TodayState) {
                                 fontSize = 32.sp,
                                 fontFamily = FontFamily(Font(R.font.pretendard_bold)),
                                 fontWeight = FontWeight(700),
-                                color = Color(0xFF3C424A),
+                                color = gray900,
                             )
                         )
 
@@ -530,7 +546,7 @@ fun CustomBottomSheet(state: TodayState) {
                                     .align(Alignment.Center)
                                     .fillMaxHeight()
                                     .width(1.dp)
-                                    .background(Color(0xFF79C0FF))
+                                    .background(blue200)
                             )
 
                             Icon(
@@ -539,7 +555,7 @@ fun CustomBottomSheet(state: TodayState) {
                                     .padding(start = (width / 100) * 30),
                                 painter = painterResource(id = R.drawable.ic_elipce),
                                 contentDescription = null,
-                                tint = Color(0xFFFFFFFF)
+                                tint = white
                             )
 
 
@@ -557,7 +573,7 @@ fun CustomBottomSheet(state: TodayState) {
                                     fontSize = 14.sp,
                                     fontFamily = FontFamily(Font(R.font.pretendard_light)),
                                     fontWeight = FontWeight(400),
-                                    color = Color(0xFFD70F27),
+                                    color = red600,
                                     textAlign = TextAlign.Start,
                                 )
                             )
@@ -568,7 +584,7 @@ fun CustomBottomSheet(state: TodayState) {
                                     fontSize = 14.sp,
                                     fontFamily = FontFamily(Font(R.font.pretendard_regular)),
                                     fontWeight = FontWeight(400),
-                                    color = Color(0xFF929BA9),
+                                    color = gray400,
                                     textAlign = TextAlign.Center,
                                 )
                             )
@@ -577,7 +593,7 @@ fun CustomBottomSheet(state: TodayState) {
                                     fontSize = 14.sp,
                                     fontFamily = FontFamily(Font(R.font.pretendard_light)),
                                     fontWeight = FontWeight(400),
-                                    color = Color(0xFF07B5EC),
+                                    color = green400,
                                     textAlign = TextAlign.End,
                                 )
                             )
@@ -593,7 +609,7 @@ fun CustomBottomSheet(state: TodayState) {
                                     fontSize = 14.sp,
                                     fontFamily = FontFamily(Font(R.font.pretendard_regular)),
                                     fontWeight = FontWeight(400),
-                                    color = Color(0xFF929BA9),
+                                    color = gray400,
                                     textAlign = TextAlign.Center,
                                 )
                             )
@@ -617,7 +633,7 @@ fun CustomBottomSheet(state: TodayState) {
                             fontSize = 17.sp,
                             fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
                             fontWeight = FontWeight(600),
-                            color = Color(0xFF6C7584),
+                            color = gray600,
                         )
                     )
 
@@ -629,7 +645,7 @@ fun CustomBottomSheet(state: TodayState) {
                             fontSize = 14.sp,
                             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
                             fontWeight = FontWeight(400),
-                            color = Color(0xFFBCC2CA),
+                            color = gray150,
                             textAlign = TextAlign.Right,
                         )
                     )
@@ -687,7 +703,7 @@ fun RowScope.StatusCard(vitalAndEnvironment: VitalAndEnvironment) {
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
                     fontWeight = FontWeight(600),
-                    color = Color(0xFF4B515C),
+                    color = gray800,
                     textAlign = TextAlign.Center,
                 )
             )
@@ -696,29 +712,11 @@ fun RowScope.StatusCard(vitalAndEnvironment: VitalAndEnvironment) {
                     fontSize = 14.sp,
                     fontFamily = FontFamily(Font(R.font.pretendard_medium)),
                     fontWeight = FontWeight(500),
-                    color = Color(0xFF7D8899),
+                    color = gray500,
                     textAlign = TextAlign.Center,
                 )
             )
         }
-    }
-}
-
-@Composable
-fun CustomItem(text: String) {
-    Row(modifier = Modifier.height(40.dp), verticalAlignment = Alignment.CenterVertically) {
-        Image(
-            painter = painterResource(id = R.drawable.apple_icon),
-            modifier = Modifier.padding(start = 31.dp, top = 9.dp),
-            contentDescription = ""
-        )
-        Text(
-            text = text,
-            modifier = Modifier
-                .height(40.dp)
-                .padding(start = 20.dp, top = 11.dp),
-            fontSize = 18.sp
-        )
     }
 }
 
@@ -728,7 +726,7 @@ private fun InfoCard(text: String) {
     Box(
         modifier = Modifier
             .border(
-                width = 1.dp, color = Color(0xFFD2D6DC), shape = RoundedCornerShape(size = 16.dp)
+                width = 1.dp, color = gray20, shape = RoundedCornerShape(size = 16.dp)
             )
             .padding(start = 10.dp, top = 4.dp, end = 10.dp, bottom = 4.dp)
     ) {
@@ -738,7 +736,7 @@ private fun InfoCard(text: String) {
                 fontSize = 12.sp,
                 fontFamily = FontFamily(Font(R.font.pretendard_medium)),
                 fontWeight = FontWeight(500),
-                color = Color(0xFF929BA9),
+                color = gray400,
                 textAlign = TextAlign.Center,
                 lineHeightStyle = LineHeightStyle(
                     alignment = LineHeightStyle.Alignment.Center, trim = LineHeightStyle.Trim.Both
