@@ -8,6 +8,10 @@ class TodayViewModel : ViewModel() {
     val state = MutableStateFlow(TodayState())
 
 
+    /**
+     * Test
+     */
+
     fun changeState() {
         state.value = state.value.copy(
             status = when (state.value.status) {
@@ -19,4 +23,6 @@ class TodayViewModel : ViewModel() {
             }
         )
     }
+
+
 }
