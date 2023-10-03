@@ -49,8 +49,13 @@ data class TodayState(
     ),
     val hour: String = "2H 18M",
     val currentState: String = "Debt",
-    val currentStateColor: Color = red500
+    val currentStateColor: Color = red500,
 
+    val weekGraphic: List<Float> = listOf(80F, 70F, 70F, 90F, 70F),
+    val todayGraphic: List<Float> = listOf(90F, 90F, 80F, 80F, 70F),
+
+    val todayAvg: Int = weekGraphic.average().toInt(),
+    val weekAvgDif: Int = todayGraphic.average().toInt() - weekGraphic.average().toInt(),
 )
 
 

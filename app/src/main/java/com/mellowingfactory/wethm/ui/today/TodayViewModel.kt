@@ -11,7 +11,6 @@ class TodayViewModel : ViewModel() {
     /**
      * Test
      */
-
     fun changeState() {
         state.value = state.value.copy(
             status = when (state.value.status) {
