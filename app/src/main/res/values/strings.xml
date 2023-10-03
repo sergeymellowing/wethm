@@ -338,6 +338,7 @@
     <string name="TODAY_TIME_N_TOKENS_INFO2">Your device is connected!\nWe\'ll have your first sleep data tomorrow.</string>
     <string name="TODAY_TIME_N_TOKENS_INFO3">At least 2hrs of sleep is needed for analysis.\nPlease try to sleep longer.</string>
     <string name="TODAY_TIME_N_TOKENS_INFO4">Your sleep is being analyzed,\nplease come back in 10 minutes.</string>
+    <string name="TODAY_TIME_N_TOKENS_TITLE3">Come back later or press the button below\nfor immediate analysis</string>
     <string name="TOO_SHORT">TOO SHORT</string>
     <string name="ANALYZING">ANALYZING...</string>
     <string name="TOTAL_DURATION">Total Duration</string>
@@ -793,4 +794,6 @@
     <string name="privacy_policy_url">https://www.wethm.com/privacy_policy</string>
     <string name="terms_of_sale_url">https://www.wethm.com/terms_of_sale</string>
     <string name="CM">cm</string>
+
+    <string name="EMPTY"></string>
 </resources>

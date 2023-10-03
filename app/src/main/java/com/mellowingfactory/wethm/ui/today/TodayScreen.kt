@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -154,7 +155,7 @@ private fun MySleepContainer(state: TodayState) {
                 Text(
                     modifier = Modifier.constrainAs(percent) {
                         start.linkTo(number.end)
-                        bottom.linkTo(number.bottom,12.dp)
+                        bottom.linkTo(number.bottom, 12.dp)
                     },
                     text = "%",
                     style = TextStyle(
@@ -186,7 +187,9 @@ private fun MySleepContainer(state: TodayState) {
 
 
         Text(
-            modifier = Modifier.padding(top = 40.dp), text = status.title, style = TextStyle(
+            modifier = Modifier.padding(top = 40.dp),
+            text = stringResource(id = status.title),
+            style = TextStyle(
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
                 fontWeight = FontWeight(600),
@@ -218,7 +221,7 @@ private fun MySleepContainer(state: TodayState) {
         if (status !is TodayStatus.Active) {
             Text(
                 modifier = Modifier.padding(top = 10.dp),
-                text = status.description,
+                text = stringResource(id = status.description),
                 style = TextStyle(
                     fontSize = 16.sp,
                     lineHeight = 22.sp,

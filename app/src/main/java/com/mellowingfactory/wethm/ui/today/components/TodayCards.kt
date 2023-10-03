@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -66,7 +67,7 @@ fun RowScope.StatusCard(vitalAndEnvironment: VitalAndEnvironment) {
                 )
             )
             Text(
-                text = vitalAndEnvironment.type, style = TextStyle(
+                text = stringResource(id = vitalAndEnvironment.typeRes), style = TextStyle(
                     fontSize = 14.sp,
                     fontFamily = FontFamily(Font(R.font.pretendard_medium)),
                     fontWeight = FontWeight(500),
@@ -80,7 +81,7 @@ fun RowScope.StatusCard(vitalAndEnvironment: VitalAndEnvironment) {
 
 
 @Composable
-fun InfoCard(text: String) {
+fun InfoCard(text: Int) {
     Box(
         modifier = Modifier
             .border(
@@ -90,7 +91,7 @@ fun InfoCard(text: String) {
     ) {
         Text(
             modifier = Modifier,//.padding(horizontal = 10.dp, vertical = 4.dp),
-            text = text, style = TextStyle(
+            text = stringResource(id = text), style = TextStyle(
                 fontSize = 12.sp,
                 fontFamily = FontFamily(Font(R.font.pretendard_medium)),
                 fontWeight = FontWeight(500),
