@@ -3,7 +3,6 @@ package com.mellowingfactory.wethm.ui.today
 import androidx.compose.ui.graphics.Path
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlin.random.Random
 
 fun polygamy(
     sides: Int = 5,

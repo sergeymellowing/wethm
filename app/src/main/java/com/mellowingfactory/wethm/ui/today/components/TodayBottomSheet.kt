@@ -1,6 +1,7 @@
 package com.mellowingfactory.wethm.ui.today.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -33,7 +34,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -199,12 +204,17 @@ fun TodayBottomSheet(state: TodayState) {
                         var width by remember {
                             mutableStateOf(0.dp)
                         }
+                        var height by remember {
+                            mutableStateOf(0.dp)
+                        }
 
                         Box(modifier = Modifier
                             .padding(top = 22.dp, start = 22.dp, end = 22.dp)
                             .onGloballyPositioned { coordinates ->
                                 width =
                                     with(localDensity) { (coordinates.size.width).toDp() - 16.dp }
+                                height =
+                                    with(localDensity) { (coordinates.size.height).toDp() - 16.dp }
                             }
                             .fillMaxWidth()
                             .height(20.dp)
@@ -223,14 +233,56 @@ fun TodayBottomSheet(state: TodayState) {
                                     .background(blue200)
                             )
 
+
                             Icon(
                                 modifier = Modifier
+                                    .align(Alignment.Center)
                                     .fillMaxHeight()
-                                    .padding(start = (width / 100) * 30),
-                                painter = painterResource(id = R.drawable.ic_elipce),
+                                    .padding(start = (width / 200) * 30),
+                                painter = painterResource(id = R.drawable.ic_punktir),
                                 contentDescription = null,
                                 tint = white
                             )
+
+                            Icon(
+                                modifier = Modifier
+                                    .align(Alignment.Center)
+                                    .fillMaxHeight()
+                                    .padding(end = (width / 200) * 30),
+                                painter = painterResource(id = R.drawable.ic_punktir),
+                                contentDescription = null,
+                                tint = white
+                            )
+
+                            if (state.currentStatusValue > 0) {
+                                val value = (width / 200) * state.currentStatusValue
+                                val alignment =
+                                    if (value < width) Alignment.Center else Alignment.CenterEnd
+                                val padding = if (alignment == Alignment.Center) value else 0.dp
+                                Icon(
+                                    modifier = Modifier
+                                        .align(alignment)
+                                        .fillMaxHeight()
+                                        .padding(start = padding),
+                                    painter = painterResource(id = R.drawable.ic_elipce),
+                                    contentDescription = null,
+                                    tint = white
+                                )
+                            } else {
+                                val value = (width / 200) * state.currentStatusValue * -1
+                                val alignment =
+                                    if (value < width) Alignment.Center else Alignment.CenterStart
+                                val padding = if (alignment == Alignment.Center) value else 0.dp
+                                Icon(
+                                    modifier = Modifier
+                                        .align(alignment)
+                                        .fillMaxHeight()
+                                        .padding(end = padding),
+                                    painter = painterResource(id = R.drawable.ic_elipce),
+                                    contentDescription = null,
+                                    tint = white
+                                )
+                            }
 
 
                         }
@@ -328,7 +380,10 @@ fun TodayBottomSheet(state: TodayState) {
                 val vitals = state.vitals.chunked(2)
                 vitals.forEach {
                     Spacer(modifier = Modifier.padding(top = 10.dp))
-                    Row(modifier = Modifier.fillMaxWidth()) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         it.forEachIndexed { index, vitalAndEnvironment ->
                             StatusCard(vitalAndEnvironment)
                             if (index == 0) {

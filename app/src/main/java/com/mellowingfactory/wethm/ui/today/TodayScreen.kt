@@ -91,7 +91,10 @@ fun TodayScreen() {
 
             }
 
-            TodayBottomSheet(state)
+            if (state.status is TodayStatus.TooShort || state.status is TodayStatus.Active) {
+                TodayBottomSheet(state)
+            }
+
         }
 
 
@@ -133,61 +136,66 @@ private fun MySleepContainer(state: TodayState) {
                 PolygramText(textMeasurer)
             }) {
             Graphics(state.todayGraphicColor, state.todayGraphic, state.weekGraphic)
-            ConstraintLayout(modifier = Modifier.align(Alignment.Center)) {
-                val (number, percent, diff) = createRefs()
-                Text(
-                    modifier = Modifier.constrainAs(number) {
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                    },
+            if (status !is TodayStatus.Ready) {
+                ConstraintLayout(modifier = Modifier.align(Alignment.Center)) {
+                    val (number, percent, diff) = createRefs()
+                    Text(
+                        modifier = Modifier.constrainAs(number) {
+                            start.linkTo(parent.start)
+                            end.linkTo(parent.end)
+                            top.linkTo(parent.top)
+                            bottom.linkTo(parent.bottom)
+                        },
 
-                    text = state.todayAvg.toString(),
-                    style = TextStyle(
-                        fontSize = 50.sp,
-                        fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
-                        fontWeight = FontWeight(600),
-                        color = white,
-                        textAlign = TextAlign.Center,
+                        text = state.todayAvgStr,
+                        style = TextStyle(
+                            fontSize = 50.sp,
+                            fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
+                            fontWeight = FontWeight(600),
+                            color = white,
+                            textAlign = TextAlign.Center,
+                        )
                     )
-                )
-                Text(
-                    modifier = Modifier.constrainAs(percent) {
-                        start.linkTo(number.end)
-                        bottom.linkTo(number.bottom, 12.dp)
-                    },
-                    text = "%",
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                        fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
-                        fontWeight = FontWeight(800),
-                        color = white,
+                    Text(
+                        modifier = Modifier.constrainAs(percent) {
+                            start.linkTo(number.end)
+                            bottom.linkTo(number.bottom, 12.dp)
+                        },
+                        text = "%",
+                        style = TextStyle(
+                            fontSize = 14.sp,
+                            fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
+                            fontWeight = FontWeight(800),
+                            color = white,
+                        )
                     )
-                )
 
-                Text(
-                    modifier = Modifier.constrainAs(diff) {
-                        top.linkTo(number.bottom)
-                        start.linkTo(parent.start)
-                        end.linkTo(parent.end)
-                    },
-                    text = "${state.weekAvgDif} %",
-                    style = TextStyle(
-                        fontSize = 12.sp,
-                        fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
-                        fontWeight = FontWeight(400),
-                        color = white,
-                        textAlign = TextAlign.Center,
-                    )
-                )
+                    if (status !is TodayStatus.None && status !is TodayStatus.TooShort && status !is TodayStatus.Analyzing) {
+                        Text(
+                            modifier = Modifier.constrainAs(diff) {
+                                top.linkTo(number.bottom)
+                                start.linkTo(parent.start)
+                                end.linkTo(parent.end)
+                            },
+                            text = "${state.weekAvgDif} %",
+                            style = TextStyle(
+                                fontSize = 12.sp,
+                                fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
+                                fontWeight = FontWeight(400),
+                                color = white,
+                                textAlign = TextAlign.Center,
+                            )
+                        )
+                    }
 
+
+                }
             }
         }
 
 
         Text(
-            modifier = Modifier.padding(top = 40.dp),
+            modifier = Modifier.padding(top = 30.dp),
             text = stringResource(id = status.title),
             style = TextStyle(
                 fontSize = 16.sp,

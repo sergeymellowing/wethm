@@ -35,7 +35,7 @@ import java.util.Date
 
 @Composable
 fun TodayHeader(currentPage: Int) {
-    val date by remember { mutableStateOf(SimpleDateFormat("MMM dd, yyyy").format(Date())) }
+    val date by remember { mutableStateOf(SimpleDateFormat("yyyy MMM dd").format(Date())) }
 
     Text(
         modifier = Modifier.fillMaxWidth(),
