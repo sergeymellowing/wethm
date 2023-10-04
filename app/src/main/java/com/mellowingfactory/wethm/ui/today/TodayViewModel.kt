@@ -40,8 +40,8 @@ private val tooShort = TodayState(
         heartMaxValue = 80,
         breathMinValue = 20,
         breathMaxValue = 30,
-        tempValue = 49F,
-        humidityValue = 55F,
+        tempValue = 49,
+        humidityValue = 55,
         noiseValue = 60
     ),
     weekGraphic = listOf(80F, 90F, 90F, 60F, 80F),
@@ -61,34 +61,66 @@ private val analyzing = TodayState(
 )
 
 private val active = TodayState(
-    status = TodayStatus.Active(),
+    status = TodayStatus.Active(status = "7H 34M",time = "12:32 AM  ~  07:44 AM"),
     hour = "1H 18M",
     currentStatusValue = 40,
-    vitals = emptyList(),
+    vitals = vitals(
+        heartMinValue = 80,
+        heartMaxValue = 80,
+        breathMinValue = 20,
+        breathMaxValue = 30,
+        tempValue = 49,
+        humidityValue = 55,
+        noiseValue = 60
+    ),
     weekGraphic = listOf(80F, 90F, 90F, 80F, 80F),
     todayGraphic = listOf(10F, 70F, 60F, 90F, 70F),
 )
 
 class TodayViewModel : ViewModel() {
 
-    val state = MutableStateFlow(tooShort)
+    val state = MutableStateFlow(active)
 
-//    status = TodayStatus.Ready,
-//    hour = "2H 18M",
-//    currentStatus = currentStatus(12),
-//    currentStatusColor = currentStatusColor(12),
-//    vitals = vitals(
-//    heartMinValue = 5,
-//    heartMaxValue = 1,
-//    breathMinValue = 2,
-//    breathMaxValue = 3,
-//    tempValue = 4f,
-//    humidityValue = 5f,
-//    noiseValue = 6
-//    ),
-//    weekGraphic = listOf(80F, 70F, 70F, 90F, 70F),
-//    todayGraphic = listOf(90F, 90F, 80F, 80F, 70F),
+    init {
+        ellie.sleepStages.sleepDuration
 
+        state.value = TodayState(
+            /**
+             * ?
+             */
+            currentStatusValue = ellie.sleepDebt[6] * -1,
+            vitals = vitals(
+                heartMinValue = ellie.heartRate.minValue.average().toInt(),
+                heartMaxValue = ellie.heartRate.maxValue.average().toInt(),
+                breathMinValue = ellie.breathingRate.minValue.average().toInt(),
+                breathMaxValue = ellie.breathingRate.maxValue.average().toInt(),
+                tempValue = ellie.temperature.values.average().toInt(),
+                humidityValue = ellie.humidity.values.average().toInt(),
+                noiseValue = ellie.audio.values.average().toInt(),
+            ),
+
+
+            status = TodayStatus.Active(
+                status = ellie.sleepStages.sleepDuration.last().toTime(),
+                /**
+                 *
+                 */
+                time = "12:32 AM  ~  07:44 AM"
+            ),
+            hour = "1H 18M",
+            /**
+             * ?????
+             */
+            weekGraphic = ellie.radarValues[6],
+            todayGraphic = ellie.radarValues.take(6).map { it.average().toFloat() },
+        )
+    }
+
+    private fun Int.toTime(): String {
+        val hours = this / 60
+        val minutes = this % 60
+        return "${hours}H ${minutes}M"
+    }
 
     /**
      * Test
@@ -100,7 +132,7 @@ class TodayViewModel : ViewModel() {
                 TodayStatus.Analyzing -> TodayStatus.None
                 TodayStatus.None -> TodayStatus.Ready
                 is TodayStatus.Ready -> TodayStatus.TooShort()
-                is TodayStatus.TooShort -> TodayStatus.Active()
+                is TodayStatus.TooShort -> TodayStatus.Active(status = "7H 34M",time = "12:32 AM  ~  07:44 AM")
             }
         )
     }

@@ -60,8 +60,8 @@ fun vitals(
     heartMaxValue: Int,
     breathMinValue: Int,
     breathMaxValue: Int,
-    tempValue: Float,
-    humidityValue: Float,
+    tempValue: Int,
+    humidityValue: Int,
     noiseValue: Int,
 ): List<VitalAndEnvironment> {
 
@@ -195,11 +195,12 @@ sealed class TodayStatus(
             R.string.TOKEN_RESTORATIVE,
             R.string.TOKEN_EFFICIENT
         ),
-        override val status: String = "7H 34M"
+        override val status: String,
+        override val time : String
     ) : TodayStatus(
         title = R.string.TOTAL_DURATION,
         description = R.string.EMPTY,
-        time = "12:32 AM  ~  07:44 AM",
+        time = time,
         status = status
     )
 }

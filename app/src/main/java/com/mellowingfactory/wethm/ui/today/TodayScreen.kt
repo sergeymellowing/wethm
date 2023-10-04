@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.center
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -120,12 +121,16 @@ private fun MySleepContainer(state: TodayState) {
         var points by remember {
             mutableStateOf(listOf<Pair<Float, Float>>())
         }
+        var size by remember {
+            mutableStateOf(IntSize.Zero)
+        }
         val textMeasurer = rememberTextMeasurer()
         val status = state.status
         Box(modifier = Modifier
             .padding(top = 40.dp)
             .width(400.dp)
             .onGloballyPositioned {
+                size = it.size
                 points = polygamyPoints(
                     it.size.width.toFloat(),
                     it.size.center.x.toFloat(),
@@ -133,9 +138,12 @@ private fun MySleepContainer(state: TodayState) {
                 )
             }
             .drawWithContent {
+                drawContent()
                 PolygramText(textMeasurer)
             }) {
+
             Graphics(state.todayGraphicColor, state.todayGraphic, state.weekGraphic)
+
             if (status !is TodayStatus.Ready) {
                 ConstraintLayout(modifier = Modifier.align(Alignment.Center)) {
                     val (number, percent, diff) = createRefs()

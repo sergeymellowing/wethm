@@ -78,16 +78,7 @@ private fun newPoint(center: Float, x: Double, y: Double, percent: Float): Pair<
 }
 
 
-fun List<Pair<Float, Float>>.toPath(width: Float): Path {
-    val path = Path()
-    val center = width / 2
-    path.moveTo(center, 0F)
-    this.forEach {
-        path.lineTo(x = it.first, y = it.second)
-    }
-    path.lineTo(center, 0F)
-    return path
-}
+
 
 
 fun polygamyPoints(width: Float, cx: Float, cy: Float): List<Pair<Float, Float>> {

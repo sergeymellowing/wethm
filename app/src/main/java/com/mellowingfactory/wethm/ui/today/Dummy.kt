@@ -3,7 +3,7 @@ package com.mellowingfactory.wethm.ui.today
 data class StatisticsResponse(
     var created: String?,
     var sleepStages: SleepStageResult,
-    var radarValues: List<List<Double>>,
+    var radarValues: List<List<Float>>,
     var heartRate: SignalResult,
     var breathingRate: SignalResult,
     var sleepQuality: List<Int>,
@@ -26,8 +26,8 @@ data class StatisticsResponse(
 )
 
 data class SleepStageResult(
-    var sleepStart: List<Double>,
-    var sleepEnd: List<Double>,
+    var sleepStart: List<Int>,
+    var sleepEnd: List<Int>,
     var sleepDuration: List<Int>,
     var sleepStages: List<List<Int>>
 )
@@ -73,8 +73,8 @@ val dummy7 = rawdummy7.map { it.digitToInt() }
 
 
 val ellieStages = SleepStageResult(
-    sleepStart = listOf(820, 882, 882, 882, 882, 787, 932).map { it.toDouble() },
-    sleepEnd = listOf(40, 1364, 1380, 1320, 1290, 1440, 1386).map { it.toDouble() },
+    sleepStart = listOf(820, 882, 882, 882, 882, 787, 932),
+    sleepEnd = listOf(40, 1364, 1380, 1320, 1290, 1440, 1386),
     sleepDuration = listOf(678, 306, 299, 250, 430, 636, 454),
     sleepStages = listOf(dummyJ, dummy2, dummy3, dummy4, dummy2, dummy5, dummy7)
 )
@@ -90,7 +90,7 @@ val ellieRadar =
         listOf(70, 95, 98, 73, 90),
         listOf(85, 85, 85, 85, 85),
     ).map {
-        it.map { it.toDouble() }
+        it.map { it.toFloat() }
     }
 
 val ellieStatHeart = SignalResult(
@@ -136,10 +136,6 @@ val dummytemperature = SignalResult(
 val ellie = StatisticsResponse(
 //    id = presentationAccount,
     created = "2023-03-11T06:39:19.661Z",
-    sleepStages = ellieStages,
-    radarValues = ellieRadar,
-    heartRate = ellieStatHeart,
-    breathingRate = ellieStatBreathing,
     sleepQuality = listOf(100, 95, 90, 85, 85, 75, 89),
     sleepLatency = listOf(7, 18, 5, 6, 0, 17, 19),
     lightDuration = listOf(67, 60, 74, 83, 0, 86, 75),
@@ -150,12 +146,28 @@ val ellie = StatisticsResponse(
     wakeUpState = listOf(0, 0, 0, 0, 0, 0, 0),
     updated = "2023-03-13T06:39:19.661Z",
     percentageChangeRadar = listOf(10, -10, -10, 10, -3).map { it.toDouble() },
+    bcgRange = null,
+    recommendations = listOf(),
+
+
+    /**
+     * Graphics
+     */
+    radarValues = ellieRadar,
+    /**
+     *
+     */
+    sleepStages = ellieStages,
     sleepDebt = listOf(138, -105, -96, -95, 0, 96, -72),
+
+    /**
+     * BOTTOMSHEET
+     */
     temperature = dummytemperature,
     humidity = dummyhumidity,
     audio = dummyaudio,
-    bcgRange = null,
-    recommendations = listOf()
+    breathingRate = ellieStatBreathing,
+    heartRate = ellieStatHeart,
 )
 
 
