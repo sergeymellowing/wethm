@@ -20,12 +20,12 @@ data class TodayState(
     val currentStatusValue: Int,
     val currentStatus: Int = currentStatus(currentStatusValue),
     val currentStatusColor: Color = currentStatusColor(currentStatusValue),
-    val weekGraphic: List<Float>,
+    val weekGraphic: List<Int>,
 
-    val todayGraphic: List<Float>,
+    val todayGraphic: List<Int>,
 
-    val todayAvg: Int = weekGraphic.average().toInt(),
-    val todayAvgStr: String = weekGraphic.average().toInt().toString(),
+    val todayAvg: Int,
+    val todayAvgStr: String = todayAvg.toString(),
     val todayGraphicColor: Color = todayColor(todayAvg),
     val weekAvgDif: Int = todayGraphic.average().toInt() - weekGraphic.average().toInt(),
 )

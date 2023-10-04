@@ -35,7 +35,7 @@ import java.lang.Math.sin
 //    close()
 //}
 
-class PolyShape(private val sides: Int, private val width: Float, private val percent: List<Float>) : Shape {
+class PolyShape(private val sides: Int, private val width: Float, private val percent: List<Int>) : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,

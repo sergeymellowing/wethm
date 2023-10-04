@@ -17,8 +17,9 @@ private val ready = TodayState(
     hour = "",
     vitals = emptyList(),
     currentStatusValue = 0,
-    weekGraphic = listOf(0F, 0F, 0F, 0F, 0F),
-    todayGraphic = listOf(0F, 0F, 0F, 0F, 0F),
+    weekGraphic = listOf(0, 0, 0, 0, 0),
+    todayGraphic = listOf(0, 0, 0, 0, 0),
+    todayAvg = 10
 )
 
 private val none = TodayState(
@@ -26,9 +27,10 @@ private val none = TodayState(
     hour = "",
     currentStatusValue = 0,
     vitals = emptyList(),
-    weekGraphic = listOf(80F, 90F, 90F, 60F, 80F),
-    todayGraphic = listOf(0F, 0F, 0F, 0F, 0F),
+    weekGraphic = listOf(80, 90, 90, 60, 80),
+    todayGraphic = listOf(0, 0, 0, 0, 0),
     todayAvgStr = "--",
+    todayAvg = 10
 )
 
 private val tooShort = TodayState(
@@ -44,9 +46,10 @@ private val tooShort = TodayState(
         humidityValue = 55,
         noiseValue = 60
     ),
-    weekGraphic = listOf(80F, 90F, 90F, 60F, 80F),
-    todayGraphic = listOf(0F, 0F, 0F, 0F, 0F),
+    weekGraphic = listOf(80, 90, 90, 60, 80),
+    todayGraphic = listOf(0, 0, 0, 0, 0),
     todayAvgStr = "--",
+    todayAvg = 10
 )
 
 
@@ -54,14 +57,15 @@ private val analyzing = TodayState(
     status = TodayStatus.Analyzing,
     hour = "",
     vitals = emptyList(),
-    weekGraphic = listOf(80F, 90F, 90F, 60F, 80F),
-    todayGraphic = listOf(0F, 0F, 0F, 0F, 0F),
+    weekGraphic = listOf(80, 90, 90, 60, 80),
+    todayGraphic = listOf(0, 0, 0, 0, 0),
     todayAvgStr = "--",
     currentStatusValue = 0,
+    todayAvg = 10
 )
 
 private val active = TodayState(
-    status = TodayStatus.Active(status = "7H 34M",time = "12:32 AM  ~  07:44 AM"),
+    status = TodayStatus.Active(status = "7H 34M", time = "12:32 AM  ~  07:44 AM"),
     hour = "1H 18M",
     currentStatusValue = 40,
     vitals = vitals(
@@ -73,8 +77,9 @@ private val active = TodayState(
         humidityValue = 55,
         noiseValue = 60
     ),
-    weekGraphic = listOf(80F, 90F, 90F, 80F, 80F),
-    todayGraphic = listOf(10F, 70F, 60F, 90F, 70F),
+    weekGraphic = listOf(80, 90, 90, 80, 80),
+    todayGraphic = listOf(10, 70, 60, 90, 70),
+    todayAvg = 10
 )
 
 class TodayViewModel : ViewModel() {
@@ -82,8 +87,13 @@ class TodayViewModel : ViewModel() {
     val state = MutableStateFlow(active)
 
     init {
-        ellie.sleepStages.sleepDuration
 
+        val weekGraphic = IntArray(5) { 0 }
+        ellie.radarValues.take(7).forEach {
+            it.forEachIndexed { index, it ->
+                weekGraphic[index] = weekGraphic[index] + it
+            }
+        }
         state.value = TodayState(
             /**
              * ?
@@ -103,16 +113,22 @@ class TodayViewModel : ViewModel() {
             status = TodayStatus.Active(
                 status = ellie.sleepStages.sleepDuration.last().toTime(),
                 /**
-                 *
+                 * ????
                  */
-                time = "12:32 AM  ~  07:44 AM"
+                time = "${
+                    ellie.sleepStages.sleepStart.average().toInt().toTime12Format()
+                }  ~  ${ellie.sleepStages.sleepEnd.average().toInt().toTime12Format()}"
             ),
-            hour = "1H 18M",
+            /**
+             *
+             */
+            hour = ellie.sleepQuality.average().toInt().toTime(),
             /**
              * ?????
              */
-            weekGraphic = ellie.radarValues[6],
-            todayGraphic = ellie.radarValues.take(6).map { it.average().toFloat() },
+            weekGraphic = weekGraphic.map { it / 7 },
+            todayGraphic = ellie.radarValues.last(),
+            todayAvg = ellie.sleepQuality.last()
         )
     }
 
@@ -121,6 +137,13 @@ class TodayViewModel : ViewModel() {
         val minutes = this % 60
         return "${hours}H ${minutes}M"
     }
+
+    private fun Int.toTime12Format(): String {
+        val hours = this / 60 % 12
+        val minutes = this % 60
+        return "${hours}:${minutes} " + if (this / 60 < 13) "AM" else "PM"
+    }
+
 
     /**
      * Test
@@ -132,7 +155,10 @@ class TodayViewModel : ViewModel() {
                 TodayStatus.Analyzing -> TodayStatus.None
                 TodayStatus.None -> TodayStatus.Ready
                 is TodayStatus.Ready -> TodayStatus.TooShort()
-                is TodayStatus.TooShort -> TodayStatus.Active(status = "7H 34M",time = "12:32 AM  ~  07:44 AM")
+                is TodayStatus.TooShort -> TodayStatus.Active(
+                    status = "7H 34M",
+                    time = "12:32 AM  ~  07:44 AM"
+                )
             }
         )
     }

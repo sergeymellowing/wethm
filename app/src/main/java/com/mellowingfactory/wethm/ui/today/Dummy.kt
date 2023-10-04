@@ -3,7 +3,7 @@ package com.mellowingfactory.wethm.ui.today
 data class StatisticsResponse(
     var created: String?,
     var sleepStages: SleepStageResult,
-    var radarValues: List<List<Float>>,
+    var radarValues: List<List<Int>>,
     var heartRate: SignalResult,
     var breathingRate: SignalResult,
     var sleepQuality: List<Int>,
@@ -89,9 +89,7 @@ val ellieRadar =
         listOf(85, 95, 98, 73, 90),
         listOf(70, 95, 98, 73, 90),
         listOf(85, 85, 85, 85, 85),
-    ).map {
-        it.map { it.toFloat() }
-    }
+    )
 
 val ellieStatHeart = SignalResult(
     values = listOf(55, 64, 53, 51, 49, 69, 56).map { it.toDouble() },
@@ -136,10 +134,11 @@ val dummytemperature = SignalResult(
 val ellie = StatisticsResponse(
 //    id = presentationAccount,
     created = "2023-03-11T06:39:19.661Z",
-    sleepQuality = listOf(100, 95, 90, 85, 85, 75, 89),
-    sleepLatency = listOf(7, 18, 5, 6, 0, 17, 19),
+
+
     lightDuration = listOf(67, 60, 74, 83, 0, 86, 75),
-    sleepEfficiency = listOf(96, 97, 98, 97, 0, 90, 97),
+
+
     deepDuration = listOf(67, 60, 74, 83, 86, 0, 75),
     remDuration = listOf(89, 87, 95, 80, 0, 90, 99),
     wokenDuration = listOf(20, 25, 30, 20, 0, 30, 10),
@@ -159,6 +158,9 @@ val ellie = StatisticsResponse(
      */
     sleepStages = ellieStages,
     sleepDebt = listOf(138, -105, -96, -95, 0, 96, -72),
+    sleepQuality = listOf(100, 95, 90, 85, 85, 75, 89),
+    sleepLatency = listOf(7, 18, 5, 6, 0, 17, 19),
+    sleepEfficiency = listOf(96, 97, 98, 97, 0, 90, 97),
 
     /**
      * BOTTOMSHEET

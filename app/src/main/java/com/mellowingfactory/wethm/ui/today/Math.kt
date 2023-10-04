@@ -7,7 +7,7 @@ import kotlin.math.sin
 fun polygamy(
     sides: Int = 5,
     width: Float,
-    percent: List<Float> = listOf(100F, 100F, 100F, 100F, 100F)
+    percent: List<Int> = listOf(100, 100, 100, 100, 100)
 ): Path {
     val path = Path()
     val center = width / 2
@@ -28,8 +28,8 @@ fun polygamy(
         Pair(a, b)
     }
     val index = when (percent[0]) {
-        0F -> 0
-        100F -> points.size - 1
+        0 -> 0
+        100 -> points.size - 1
         else -> (points.size / 100.0 * percent[0]).toInt()
     }
     val point = points[index]
@@ -54,7 +54,7 @@ fun polygamy(
     return path
 }
 
-private fun newPoint(center: Float, x: Double, y: Double, percent: Float): Pair<Float, Float> {
+private fun newPoint(center: Float, x: Double, y: Double, percent: Int): Pair<Float, Float> {
     val x1 = center
     val y1 = center
     val x2 = x
@@ -69,8 +69,8 @@ private fun newPoint(center: Float, x: Double, y: Double, percent: Float): Pair<
         Pair(a, b)
     }
     val index = when (percent) {
-        0F -> 0
-        100F -> points.size - 1
+        0 -> 0
+        100 -> points.size - 1
         else -> (points.size / 100.0 * percent).toInt()
     }
     val point = points[index]
