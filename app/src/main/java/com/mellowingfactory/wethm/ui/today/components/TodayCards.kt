@@ -63,7 +63,7 @@ fun RowScope.StatusCard(vitalAndEnvironment: VitalAndEnvironment) {
                     fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
                     fontWeight = FontWeight(600),
                     color = gray800,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Start,
                 )
             )
             Text(
@@ -72,7 +72,7 @@ fun RowScope.StatusCard(vitalAndEnvironment: VitalAndEnvironment) {
                     fontFamily = FontFamily(Font(R.font.pretendard_medium)),
                     fontWeight = FontWeight(500),
                     color = gray500,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Start,
                 )
             )
         }

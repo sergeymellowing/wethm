@@ -12,9 +12,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -26,12 +30,17 @@ import com.mellowingfactory.wethm.R
 import com.mellowingfactory.wethm.ui.theme.gray1100
 import com.mellowingfactory.wethm.ui.theme.gray150
 import com.mellowingfactory.wethm.ui.theme.gray320
+import java.text.SimpleDateFormat
+import java.util.Date
 
 @Composable
 fun TodayHeader(currentPage: Int) {
+    val date by remember { mutableStateOf(SimpleDateFormat("MMM dd, yyyy").format(Date())) }
+
     Text(
         modifier = Modifier.fillMaxWidth(),
-        text = "Jan 27, 2023 ", style = TextStyle(
+        text = date,
+        style = TextStyle(
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.pretendard_medium)),
             fontWeight = FontWeight(500),
@@ -44,7 +53,7 @@ fun TodayHeader(currentPage: Int) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 4.dp),
-        text = if (currentPage == 0) "My harmony" else "My sleep",
+        text = stringResource(id = if (currentPage == 0) R.string.MY_HARMONY else R.string.MY_SLEEP),
         style = TextStyle(
             fontSize = 24.sp,
             fontFamily = FontFamily(Font(R.font.pretendard_semibold)),

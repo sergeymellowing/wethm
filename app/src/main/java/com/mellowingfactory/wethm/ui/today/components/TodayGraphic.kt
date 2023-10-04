@@ -77,6 +77,7 @@ fun BoxScope.Graphics(
                         clip = true
                     }
                     .background(Color(0x4D10E9EF))
+                    .blur(16.dp)
 
             )
 
@@ -92,6 +93,7 @@ fun BoxScope.Graphics(
                         clip = true
                     }
                     .background(todayColor)
+                    .blur(16.dp)
 
             )
         }
