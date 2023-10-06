@@ -91,4 +91,6 @@ dependencies {
 
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
+    implementation("com.github.skydoves:cloudy:0.1.2")
+
 }
