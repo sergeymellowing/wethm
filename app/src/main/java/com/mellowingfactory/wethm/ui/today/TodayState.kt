@@ -119,11 +119,11 @@ fun vitals(
         borderColor = humidityBorderColor,
     )
 
-    val noiseColor = if (noiseValue < 30 || noiseValue > 50) red500 else blue_stripes
-    val noiseBorderColor = if (noiseValue < 30 || noiseValue > 30) red100 else blue50
+    val noiseColor = if (noiseValue > 30) red500 else blue_stripes
+    val noiseBorderColor = if (noiseValue > 30) red100 else blue50
     val noiseIcon =
-        if (noiseValue < 30) R.drawable.ic_noise_min
-        else if (noiseValue > 50) R.drawable.ic_noise_max
+        if (noiseValue > 30) R.drawable.ic_noise_min
+//        else if (noiseValue > 50) R.drawable.ic_noise_max
         else R.drawable.ic_noise_normal
     val noise = VitalAndEnvironment(
         typeRes = R.string.NOISE,

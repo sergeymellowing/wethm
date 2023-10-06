@@ -19,7 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             WethmTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.safeContent),
+                    modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     RootContent()

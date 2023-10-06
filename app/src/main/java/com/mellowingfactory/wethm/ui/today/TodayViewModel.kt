@@ -116,8 +116,8 @@ class TodayViewModel : ViewModel() {
                  * ????
                  */
                 time = "${
-                    ellie.sleepStages.sleepStart.average().toInt().toTime12Format()
-                }  ~  ${ellie.sleepStages.sleepEnd.average().toInt().toTime12Format()}"
+                    ellie.sleepStages.sleepStart.last().toInt().toTime12Format()
+                }  ~  ${ellie.sleepStages.sleepEnd.last().toInt().toTime12Format()}"
             ),
             /**
              *
@@ -138,12 +138,16 @@ class TodayViewModel : ViewModel() {
         return "${hours}H ${minutes}M"
     }
 
-    private fun Int.toTime12Format(): String {
-        val hours = this / 60 % 12
-        val minutes = this % 60
-        return "${hours}:${minutes} " + if (this / 60 < 13) "AM" else "PM"
+    private fun Int.toTime12Format(addTimeZone: Int = 9): String {
+        val current = this + 60 * addTimeZone
+        val hours = current / 60 % 12
+        val minutes = current % 60
+        return "${hours.toHour()}:${minutes.toHour()} " + if (current / 60 < 13) "AM" else "PM"
     }
 
+    private fun Int.toHour(): String {
+        return if (this < 10) "0${this}" else this.toString()
+    }
 
     /**
      * Test
