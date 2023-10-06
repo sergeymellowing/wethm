@@ -73,7 +73,7 @@ fun TodayBottomSheet(state: TodayState) {
     val scaffoldState = rememberBottomSheetScaffoldState()
     BottomSheetScaffold(modifier = Modifier,
         scaffoldState = scaffoldState,
-        sheetPeekHeight = 64.dp,
+        sheetPeekHeight = 48.dp,
         sheetContainerColor = white,
         sheetShadowElevation = 24.dp,
         sheetShape = RoundedCornerShape(topStart = 22.dp, topEnd = 22.dp),
@@ -382,13 +382,11 @@ fun TodayBottomSheet(state: TodayState) {
                     Spacer(modifier = Modifier.padding(top = 10.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         it.forEachIndexed { index, vitalAndEnvironment ->
                             StatusCard(vitalAndEnvironment)
-                            if (index == 0) {
-                                Spacer(modifier = Modifier.padding(10.dp))
-                            }
                         }
 
                     }

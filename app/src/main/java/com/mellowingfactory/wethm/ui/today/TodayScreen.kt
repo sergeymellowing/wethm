@@ -129,8 +129,8 @@ private fun MySleepContainer(state: TodayState) {
         val textMeasurer = rememberTextMeasurer()
         val status = state.status
         Box(modifier = Modifier
-            .padding(top = 40.dp)
-            .width(400.dp)
+            .padding(top = 36.dp)
+            .width(350.dp)
             .onGloballyPositioned {
                 size = it.size
                 points = polygamyPoints(
@@ -205,7 +205,7 @@ private fun MySleepContainer(state: TodayState) {
 
 
         Text(
-            modifier = Modifier.padding(top = 30.dp),
+            modifier = Modifier.padding(top = 24.dp),
             text = stringResource(id = status.title),
             style = TextStyle(
                 fontSize = 16.sp,
