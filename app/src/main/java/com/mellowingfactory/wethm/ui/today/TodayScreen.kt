@@ -64,34 +64,25 @@ fun TodayScreen() {
                 brush = Brush.verticalGradient(
                     colors = pageGradient
                 )
-            ).statusBarsPadding().navigationBarsPadding()
+            )
+            .statusBarsPadding()
+            .navigationBarsPadding()
     ) {
 
         TodayToolbar()
-
         Box(modifier = Modifier.fillMaxSize()) {
-
             Column(modifier = Modifier.fillMaxSize()) {
-                val pagerState = rememberPagerState(1) {
-                    2
-                }
+                val pagerState = rememberPagerState(1) { 2 }
                 TodayHeader(pagerState.currentPage)
 
                 HorizontalPager(state = pagerState) {
                     Box {
                         when (it) {
-                            0 -> {
-                                MyHarmonyContainer()
-                            }
-
-                            1 -> {
-                                MySleepContainer(state)
-
-                            }
+                            0 -> MyHarmonyContainer()
+                            1 -> MySleepContainer(state)
                         }
                     }
                 }
-
             }
 
             if (state.status is TodayStatus.TooShort || state.status is TodayStatus.Active) {
