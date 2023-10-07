@@ -31,10 +31,10 @@ data class TodayState(
     val todayAvgStr: String = todayAvg.toString(),
     val todayGraphicColor: List<Color> = todayColor(todayAvg),
     val weekAvgDif: Int = todayGraphic.average().toInt() - weekGraphic.average().toInt(),
-    val gData: List<Pair<Int, Int>> = gData(weekGraphic, todayGraphic)
+    val gData: List<Pair<Int, Int>> = gData(todayGraphic, weekGraphic)
 )
 
-private fun gData(weekGraphic: List<Int>, todayGraphic: List<Int>): List<Pair<Int, Int>> {
+private fun gData(todayGraphic: List<Int>, weekGraphic: List<Int>): List<Pair<Int, Int>> {
     val texts = listOf(
         R.string.DEEP_SLEEP,
         R.string.EFFICIENCY,
@@ -42,16 +42,20 @@ private fun gData(weekGraphic: List<Int>, todayGraphic: List<Int>): List<Pair<In
         R.string.WAKEUP_STATE,
         R.string.DURATION,
     )
-    //TODO LOGIC
-    val logos = listOf(
-        R.drawable.ic_bad_level_2,
-        R.drawable.ic_bad_level_3,
-        R.drawable.ic_good_level_2,
-        R.drawable.ic_good_level_3
-    )
-    return weekGraphic.zip(todayGraphic).mapIndexed { index, pair ->
-        val dif = abs(pair.first - pair.second)
-        Pair(texts[index], logos.random())
+
+    return todayGraphic.zip(weekGraphic).mapIndexed { index, pair ->
+        val dif = pair.first - pair.second
+        val absDiff = abs(dif)
+        val logo = if (dif > 0) {
+            if (absDiff > 10) R.drawable.ic_good_level_3
+            if (absDiff > 5) R.drawable.ic_good_level_2
+            else R.drawable.ic_good_level_1
+        } else {
+            if (absDiff > 10) R.drawable.ic_bad_level_3
+            if (absDiff > 5) R.drawable.ic_bad_level_2
+            else R.drawable.ic_bad_level_1
+        }
+        Pair(texts[index], logo)
     }
 }
 
