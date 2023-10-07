@@ -66,14 +66,22 @@ import com.mellowingfactory.wethm.ui.today.TodayState
 fun TodayBottomSheet(state: TodayState) {
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberBottomSheetScaffoldState()
+    var sheetPeekHeight by remember {
+        mutableStateOf(0.dp)
+    }
+    val localDensity = LocalDensity.current
     BottomSheetScaffold(modifier = Modifier,
         scaffoldState = scaffoldState,
-        sheetPeekHeight = 48.dp,
+        sheetPeekHeight = sheetPeekHeight,
         sheetContainerColor = white,
         sheetShadowElevation = 24.dp,
         sheetShape = RoundedCornerShape(topStart = 22.dp, topEnd = 22.dp),
         sheetDragHandle = {
-            Header()
+            Header(
+                modifier = Modifier
+                    .onGloballyPositioned {
+                        sheetPeekHeight = with(localDensity) { it.size.height.toDp() }
+                    })
         },
         sheetContent = {
             Column(
@@ -372,9 +380,9 @@ private fun Info(state: TodayState) {
 }
 
 @Composable
-private fun Header() {
+private fun Header(modifier: Modifier = Modifier) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp)
             .padding(top = 24.dp, bottom = 8.dp),

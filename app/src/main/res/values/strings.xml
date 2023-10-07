@@ -66,6 +66,7 @@
     <string name="EFFICIENCY">Efficiency</string>
     <string name="LATENCY">Latency</string>
     <string name="WAKEUP">Wake-up</string>
+    <string name="WAKEUP_STATE">Wake-up\nState</string>
     <string name="SLEEP_LATENCY">Sleep Latency</string>
     <string name="DURATION">Duration</string>
     <string name="TODAY">Today</string>

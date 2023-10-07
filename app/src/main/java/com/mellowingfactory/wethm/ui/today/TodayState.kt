@@ -3,10 +3,10 @@ package com.mellowingfactory.wethm.ui.today
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.VectorPainter
 import com.mellowingfactory.wethm.R
 import com.mellowingfactory.wethm.ui.theme.blue400
 import com.mellowingfactory.wethm.ui.theme.blue50
-import com.mellowingfactory.wethm.ui.theme.blue500
 import com.mellowingfactory.wethm.ui.theme.blue_stripes
 import com.mellowingfactory.wethm.ui.theme.graphicColors1
 import com.mellowingfactory.wethm.ui.theme.graphicColors2
@@ -14,7 +14,7 @@ import com.mellowingfactory.wethm.ui.theme.graphicColors3
 import com.mellowingfactory.wethm.ui.theme.green300
 import com.mellowingfactory.wethm.ui.theme.red100
 import com.mellowingfactory.wethm.ui.theme.red500
-import com.mellowingfactory.wethm.ui.theme.yellow500
+import kotlin.math.abs
 
 data class TodayState(
     val status: TodayStatus,
@@ -31,7 +31,29 @@ data class TodayState(
     val todayAvgStr: String = todayAvg.toString(),
     val todayGraphicColor: List<Color> = todayColor(todayAvg),
     val weekAvgDif: Int = todayGraphic.average().toInt() - weekGraphic.average().toInt(),
+    val gData: List<Pair<Int, Int>> = gData(weekGraphic, todayGraphic)
 )
+
+private fun gData(weekGraphic: List<Int>, todayGraphic: List<Int>): List<Pair<Int, Int>> {
+    val texts = listOf(
+        R.string.DEEP_SLEEP,
+        R.string.EFFICIENCY,
+        R.string.LATENCY,
+        R.string.WAKEUP_STATE,
+        R.string.DURATION,
+    )
+    //TODO LOGIC
+    val logos = listOf(
+        R.drawable.ic_bad_level_2,
+        R.drawable.ic_bad_level_3,
+        R.drawable.ic_good_level_2,
+        R.drawable.ic_good_level_3
+    )
+    return weekGraphic.zip(todayGraphic).mapIndexed { index, pair ->
+        val dif = abs(pair.first - pair.second)
+        Pair(texts[index], logos.random())
+    }
+}
 
 private fun todayColor(value: Int): List<Color> {
     return if (value > 79) {

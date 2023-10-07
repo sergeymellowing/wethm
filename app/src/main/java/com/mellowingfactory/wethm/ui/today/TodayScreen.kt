@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -25,8 +26,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.VectorPainter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -120,9 +127,17 @@ private fun MySleepContainer(state: TodayState) {
         }
         val textMeasurer = rememberTextMeasurer()
         val status = state.status
+        val context = LocalContext.current
+        val gData = state.gData.map {
+            val image = ImageVector.vectorResource(id = it.second)
+            val painter = rememberVectorPainter(image = image)
+            Pair(context.getString(it.first), painter)
+        }
+
         Box(modifier = Modifier
+            .fillMaxWidth()
             .padding(top = 36.dp)
-            .width(350.dp)
+            .width(300.dp)
             .onGloballyPositioned {
                 size = it.size
                 points = polygamyPoints(
@@ -133,13 +148,15 @@ private fun MySleepContainer(state: TodayState) {
             }
             .drawWithContent {
                 drawContent()
-                PolygonText(textMeasurer)
-            }) {
+                PolygonText(textMeasurer, gData)
+            }
+
+        ) {
 
             Graphics(state.todayGraphicColor, state.todayGraphic, state.weekGraphic)
 
             if (status !is TodayStatus.Ready) {
-               RadarInfo(state)
+                RadarInfo(state)
             }
         }
 
@@ -207,7 +224,6 @@ private fun MySleepContainer(state: TodayState) {
 
     }
 }
-
 
 
 @Composable

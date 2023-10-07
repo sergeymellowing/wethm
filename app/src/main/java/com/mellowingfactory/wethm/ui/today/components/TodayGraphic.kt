@@ -20,11 +20,21 @@ import androidx.compose.ui.geometry.center
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.translate
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.text.TextMeasurer
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.mellowingfactory.wethm.R
 import com.mellowingfactory.wethm.ui.theme.gray20
 import com.mellowingfactory.wethm.ui.today.PolyShape
 import com.mellowingfactory.wethm.ui.today.polygamy
@@ -111,56 +121,140 @@ fun BoxScope.Graphics(
     }
 }
 
+private fun DrawScope.drawTextWithStyle(
+    textMeasurer: TextMeasurer,
+    text: String,
+    topLeft: Offset = Offset.Zero,
+) {
+    drawText(
+        textMeasurer,
+        text = text,
+        topLeft = topLeft,
+        style = TextStyle(
+            fontSize = 12.sp,
+            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+            fontWeight = FontWeight(400),
+            color = Color(0xFF929BA9),
+            textAlign = TextAlign.End
+        ),
+    )
+}
 
-fun ContentDrawScope.PolygonText(textMeasurer: TextMeasurer) {
-    drawContent()
-    //
-    val width = size.width
-    val p = polygamyPoints(width, center.x, center.y)
-    p.forEachIndexed { index, it ->
-        when (index) {
-            0 -> {
-                drawText(
-                    textMeasurer,
-                    "Deep sleep",
-                    topLeft = Offset(it.first - 100, it.second - 60)
-                )
+
+fun ContentDrawScope.PolygonText(textMeasurer: TextMeasurer, data: List<Pair<String,VectorPainter>>) {
+    try {
+        val width = size.width
+        val p = polygamyPoints(width, center.x, center.y)
+
+        p.forEachIndexed { index, it ->
+            val painter  = data[index].second
+            val text  = data[index].first
+            val logoHeight = painter.intrinsicSize.height
+            val logoWidth = painter.intrinsicSize.width
+            when (index) {
+                0 -> {
+                    translate(
+                        left = it.first - logoWidth / 2,
+                        top = it.second - logoHeight
+                    ) {
+                        with(painter) {
+                            draw(painter.intrinsicSize)
+                        }
+                    }
+                    drawTextWithStyle(
+                        textMeasurer = textMeasurer,
+                        text = text,
+                        topLeft = Offset(
+                            x = it.first + painter.intrinsicSize.width + 4 - logoWidth / 2,
+                            y = it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+                        ),
+                    )
+                }
+
+                1 -> {
+                    translate(
+                        left = it.first + logoWidth / 2,
+                        top = it.second - logoHeight
+                    ) {
+                        with(painter) {
+                            draw(painter.intrinsicSize)
+                        }
+                    }
+                    drawTextWithStyle(
+                        textMeasurer = textMeasurer,
+                        text = text,
+                        topLeft = Offset(
+                            x = it.first + painter.intrinsicSize.width + 4 + logoWidth / 2,
+                            y = it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+                        ),
+                    )
+                }
+
+                2 -> {
+                    translate(
+                        left = it.first + logoWidth,
+                        top = it.second - logoHeight
+                    ) {
+                        with(painter) {
+                            draw(painter.intrinsicSize)
+                        }
+                    }
+                    drawTextWithStyle(
+                        textMeasurer = textMeasurer,
+                        text = text,
+                        topLeft = Offset(
+                            x = it.first + painter.intrinsicSize.width + 4 + logoWidth,
+                            y = it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+                        ),
+                    )
+                }
+
+                3 -> {
+                    translate(
+                        left = it.first - 2 * logoWidth,
+                        top = it.second - logoHeight
+                    ) {
+                        with(painter) {
+                            draw(painter.intrinsicSize)
+                        }
+                    }
+
+                    drawTextWithStyle(
+                        textMeasurer = textMeasurer,
+                        text = text,
+                        topLeft = Offset(
+                            x = it.first - textMeasurer.measure(text).size.width - 2 * logoWidth,
+                            y = it.second - logoHeight - textMeasurer.measure(text).size.height / 4
+                        ),
+                    )
+                }
+
+                4 -> {
+                    translate(
+                        left = it.first - logoWidth,
+                        top = it.second - logoHeight
+                    ) {
+                        with(painter) {
+                            draw(painter.intrinsicSize)
+                        }
+                    }
+                    drawTextWithStyle(
+                        textMeasurer = textMeasurer,
+                        text = text,
+                        topLeft = Offset(
+                            x = it.first - textMeasurer.measure(text).size.width - logoWidth/2,
+                            y = it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+                        ),
+                    )
+                }
             }
 
-            1 -> {
-                drawText(
-                    textMeasurer,
-                    "Efficiency",
-                    topLeft = Offset(it.first + 10, it.second - 30)
-                )
-            }
 
-            2 -> {
-                drawText(
-                    textMeasurer,
-                    "Latency",
-                    topLeft = Offset(it.first + 40, it.second - 40)
-                )
-            }
-
-            3 -> {
-                drawText(
-                    textMeasurer,
-                    "Wake-up\nState",
-                    topLeft = Offset(it.first - 200, it.second - 80)
-                )
-            }
-
-            4 -> {
-                drawText(
-                    textMeasurer,
-                    "Duration",
-                    topLeft = Offset(it.first - 150, it.second - 30)
-                )
-            }
         }
-
+    } catch (e: Exception) {
 
     }
+
+
 }
 
