@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -138,59 +139,7 @@ private fun MySleepContainer(state: TodayState) {
             Graphics(state.todayGraphicColor, state.todayGraphic, state.weekGraphic)
 
             if (status !is TodayStatus.Ready) {
-                ConstraintLayout(modifier = Modifier.align(Alignment.Center)) {
-                    val (number, percent, diff) = createRefs()
-                    Text(
-                        modifier = Modifier.constrainAs(number) {
-                            start.linkTo(parent.start)
-                            end.linkTo(parent.end)
-                            top.linkTo(parent.top)
-                            bottom.linkTo(parent.bottom)
-                        },
-
-                        text = state.todayAvgStr,
-                        style = TextStyle(
-                            fontSize = 50.sp,
-                            fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
-                            fontWeight = FontWeight(600),
-                            color = white,
-                            textAlign = TextAlign.Center,
-                        )
-                    )
-                    Text(
-                        modifier = Modifier.constrainAs(percent) {
-                            start.linkTo(number.end)
-                            bottom.linkTo(number.bottom, 12.dp)
-                        },
-                        text = "%",
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
-                            fontWeight = FontWeight(800),
-                            color = white,
-                        )
-                    )
-
-                    if (status !is TodayStatus.None && status !is TodayStatus.TooShort && status !is TodayStatus.Analyzing) {
-                        Text(
-                            modifier = Modifier.constrainAs(diff) {
-                                top.linkTo(number.bottom)
-                                start.linkTo(parent.start)
-                                end.linkTo(parent.end)
-                            },
-                            text = "${state.weekAvgDif} %",
-                            style = TextStyle(
-                                fontSize = 12.sp,
-                                fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
-                                fontWeight = FontWeight(400),
-                                color = white,
-                                textAlign = TextAlign.Center,
-                            )
-                        )
-                    }
-
-
-                }
+               RadarInfo(state)
             }
         }
 
@@ -260,4 +209,62 @@ private fun MySleepContainer(state: TodayState) {
 }
 
 
+
+@Composable
+private fun BoxScope.RadarInfo(state: TodayState) {
+    val status = state.status
+    ConstraintLayout(modifier = Modifier.align(Alignment.Center)) {
+        val (number, percent, diff) = createRefs()
+        Text(
+            modifier = Modifier.constrainAs(number) {
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                top.linkTo(parent.top)
+                bottom.linkTo(parent.bottom)
+            },
+
+            text = state.todayAvgStr,
+            style = TextStyle(
+                fontSize = 50.sp,
+                fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
+                fontWeight = FontWeight(600),
+                color = white,
+                textAlign = TextAlign.Center,
+            )
+        )
+        Text(
+            modifier = Modifier.constrainAs(percent) {
+                start.linkTo(number.end)
+                bottom.linkTo(number.bottom, 12.dp)
+            },
+            text = "%",
+            style = TextStyle(
+                fontSize = 14.sp,
+                fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
+                fontWeight = FontWeight(800),
+                color = white,
+            )
+        )
+
+        if (status !is TodayStatus.None && status !is TodayStatus.TooShort && status !is TodayStatus.Analyzing) {
+            Text(
+                modifier = Modifier.constrainAs(diff) {
+                    top.linkTo(number.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+                text = "${state.weekAvgDif} %",
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    fontFamily = FontFamily(Font(R.font.pretendard_semibold)),
+                    fontWeight = FontWeight(400),
+                    color = white,
+                    textAlign = TextAlign.Center,
+                )
+            )
+        }
+
+
+    }
+}
 
