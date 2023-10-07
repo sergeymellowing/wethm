@@ -115,3 +115,19 @@ val gradient = listOf(
 )
 
 
+val graphicColors1 = listOf(
+    Color(0x806BDEFF),
+    Color(0x800A8CFF),
+    Color(0x800066FF),
+)
+val graphicColors2 = listOf(
+    Color(0x80FFED00),
+    Color(0x80FFD600),
+    Color(0x80FFBA00),
+)
+val graphicColors3 = listOf(
+    Color(0x80FF99A1),
+    Color(0x80E66370),
+    Color(0x80F5364D),
+)
+

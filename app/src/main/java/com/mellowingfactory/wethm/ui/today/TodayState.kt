@@ -8,6 +8,9 @@ import com.mellowingfactory.wethm.ui.theme.blue400
 import com.mellowingfactory.wethm.ui.theme.blue50
 import com.mellowingfactory.wethm.ui.theme.blue500
 import com.mellowingfactory.wethm.ui.theme.blue_stripes
+import com.mellowingfactory.wethm.ui.theme.graphicColors1
+import com.mellowingfactory.wethm.ui.theme.graphicColors2
+import com.mellowingfactory.wethm.ui.theme.graphicColors3
 import com.mellowingfactory.wethm.ui.theme.green300
 import com.mellowingfactory.wethm.ui.theme.red100
 import com.mellowingfactory.wethm.ui.theme.red500
@@ -32,23 +35,11 @@ data class TodayState(
 
 private fun todayColor(value: Int): List<Color> {
     return if (value > 79) {
-        listOf(
-            Color(0x806BDEFF),
-            Color(0x800A8CFF),
-            Color(0x800066FF),
-        )
+        graphicColors1
     } else if (value > 60) {
-        listOf(
-            Color(0x80FFED00),
-            Color(0x80FFD600),
-            Color(0x80FFBA00),
-        )
+        graphicColors2
     } else {
-        listOf(
-            Color(0x80FF99A1),
-            Color(0x80E66370),
-            Color(0x80F5364D),
-        )
+        graphicColors3
     }
 }
 
