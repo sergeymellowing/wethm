@@ -26,17 +26,29 @@ data class TodayState(
 
     val todayAvg: Int,
     val todayAvgStr: String = todayAvg.toString(),
-    val todayGraphicColor: Color = todayColor(todayAvg),
+    val todayGraphicColor: List<Color> = todayColor(todayAvg),
     val weekAvgDif: Int = todayGraphic.average().toInt() - weekGraphic.average().toInt(),
 )
 
-private fun todayColor(value: Int): Color {
+private fun todayColor(value: Int): List<Color> {
     return if (value > 79) {
-        blue500.copy(alpha = 0.33f)
+        listOf(
+            Color(0x806BDEFF),
+            Color(0x800A8CFF),
+            Color(0x800066FF),
+        )
     } else if (value > 60) {
-        yellow500.copy(alpha = 0.33f)
+        listOf(
+            Color(0x80FFED00),
+            Color(0x80FFD600),
+            Color(0x80FFBA00),
+        )
     } else {
-        red500.copy(alpha = 0.33f)
+        listOf(
+            Color(0x80FF99A1),
+            Color(0x80E66370),
+            Color(0x80F5364D),
+        )
     }
 }
 
@@ -196,7 +208,7 @@ sealed class TodayStatus(
             R.string.TOKEN_EFFICIENT
         ),
         override val status: String,
-        override val time : String
+        override val time: String
     ) : TodayStatus(
         title = R.string.TOTAL_DURATION,
         description = R.string.EMPTY,

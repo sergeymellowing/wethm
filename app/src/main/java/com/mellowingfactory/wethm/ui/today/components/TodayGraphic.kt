@@ -2,6 +2,7 @@ package com.mellowingfactory.wethm.ui.today.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.height
@@ -16,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.center
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -30,7 +32,7 @@ import com.mellowingfactory.wethm.ui.today.polygamyPoints
 
 @Composable
 fun BoxScope.Graphics(
-    todayColor: Color,
+    todayColor: List<Color>,
     todayGraphic: List<Int>,
     weekGraphic: List<Int>,
     boxSize: Int = 250
@@ -56,41 +58,53 @@ fun BoxScope.Graphics(
                 path = polygram,
                 color = gray20,
                 style = Stroke(width = 1f),
-//                    style = Fill
-//                    colorFilter = ColorFilter.tint(gray20),
-//                    blendMode = BlendMode.Color
             )
         }
 
 
         if (j == 1) {
-            Box(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .width((boxSize - j * 40).dp)
-                    .height((boxSize - j * 40).dp)
-                    .graphicsLayer {
-                        width = size.width
-                        shape = PolyShape(5, width, weekGraphic)
-                        clip = true
-                    }
-                    .background(Color(0x4D10E9EF))
-            )
+            if (width > 0) {
+                val weekShape = PolyShape(5, width, weekGraphic)
+                val weekColor by remember { mutableStateOf(Color(0x333BFFE6).copy(alpha = 0.2F)) }
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .width((boxSize - j * 40).dp)
+                        .height((boxSize - j * 40).dp)
+                        .graphicsLayer {
+                            width = size.width
+                            shape = PolyShape(5, width, weekGraphic)
+                            clip = true
+                        }
+                        .background(weekColor)
+                        .border(1.dp, weekColor.copy(alpha = 1F), weekShape)
+                )
 
 
-            Box(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .width((boxSize - j * 40).dp)
-                    .height((boxSize - j * 40).dp)
-                    .graphicsLayer {
-                        width = size.width
-                        shape = PolyShape(5, width, todayGraphic)
-                        clip = true
-                    }
-                    .background(todayColor)
+                val todayShape = PolyShape(5, width, todayGraphic)
+                val sloganBrush = Brush.linearGradient(
+                    colors = todayColor,
+                    start = Offset(75F, 32F),
+                    end = Offset(143F, 168F),
+                )
 
-            )
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .width((boxSize - j * 40).dp)
+                        .height((boxSize - j * 40).dp)
+                        .graphicsLayer {
+                            width = size.width
+                            shape = todayShape
+                            clip = true
+                        }
+                        .background(sloganBrush, todayShape, alpha = 0.5F)
+                        .border(1.dp, todayColor.last(), todayShape)
+
+                )
+            }
+
         }
 
 
@@ -98,7 +112,7 @@ fun BoxScope.Graphics(
 }
 
 
-fun ContentDrawScope.PolygramText(textMeasurer: TextMeasurer) {
+fun ContentDrawScope.PolygonText(textMeasurer: TextMeasurer) {
     drawContent()
     //
     val width = size.width

@@ -1,86 +1,8 @@
 package com.mellowingfactory.wethm.ui.today
 
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import com.mellowingfactory.wethm.R
-import com.mellowingfactory.wethm.ui.theme.blue400
-import com.mellowingfactory.wethm.ui.theme.blue50
-import com.mellowingfactory.wethm.ui.theme.blue_stripes
-import com.mellowingfactory.wethm.ui.theme.green300
-import com.mellowingfactory.wethm.ui.theme.red100
-import com.mellowingfactory.wethm.ui.theme.red500
 import kotlinx.coroutines.flow.MutableStateFlow
 
-
-private val ready = TodayState(
-    status = TodayStatus.Ready,
-    hour = "",
-    vitals = emptyList(),
-    currentStatusValue = 0,
-    weekGraphic = listOf(0, 0, 0, 0, 0),
-    todayGraphic = listOf(0, 0, 0, 0, 0),
-    todayAvg = 10
-)
-
-private val none = TodayState(
-    status = TodayStatus.None,
-    hour = "",
-    currentStatusValue = 0,
-    vitals = emptyList(),
-    weekGraphic = listOf(80, 90, 90, 60, 80),
-    todayGraphic = listOf(0, 0, 0, 0, 0),
-    todayAvgStr = "--",
-    todayAvg = 10
-)
-
-private val tooShort = TodayState(
-    status = TodayStatus.TooShort(),
-    hour = "1H 18M",
-    currentStatusValue = 40,
-    vitals = vitals(
-        heartMinValue = 80,
-        heartMaxValue = 80,
-        breathMinValue = 20,
-        breathMaxValue = 30,
-        tempValue = 49,
-        humidityValue = 55,
-        noiseValue = 60
-    ),
-    weekGraphic = listOf(80, 90, 90, 60, 80),
-    todayGraphic = listOf(0, 0, 0, 0, 0),
-    todayAvgStr = "--",
-    todayAvg = 10
-)
-
-
-private val analyzing = TodayState(
-    status = TodayStatus.Analyzing,
-    hour = "",
-    vitals = emptyList(),
-    weekGraphic = listOf(80, 90, 90, 60, 80),
-    todayGraphic = listOf(0, 0, 0, 0, 0),
-    todayAvgStr = "--",
-    currentStatusValue = 0,
-    todayAvg = 10
-)
-
-private val active = TodayState(
-    status = TodayStatus.Active(status = "7H 34M", time = "12:32 AM  ~  07:44 AM"),
-    hour = "1H 18M",
-    currentStatusValue = 40,
-    vitals = vitals(
-        heartMinValue = 80,
-        heartMaxValue = 80,
-        breathMinValue = 20,
-        breathMaxValue = 30,
-        tempValue = 49,
-        humidityValue = 55,
-        noiseValue = 60
-    ),
-    weekGraphic = listOf(80, 90, 90, 80, 80),
-    todayGraphic = listOf(10, 70, 60, 90, 70),
-    todayAvg = 10
-)
 
 class TodayViewModel : ViewModel() {
 
@@ -110,6 +32,10 @@ class TodayViewModel : ViewModel() {
             ),
 
 
+            /**
+             * здесь нужна логика загрузки etc
+             *  все кейсы есть в dummy
+             */
             status = TodayStatus.Active(
                 status = ellie.sleepStages.sleepDuration.last().toTime(),
                 /**

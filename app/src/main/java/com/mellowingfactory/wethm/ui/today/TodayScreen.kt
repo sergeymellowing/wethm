@@ -22,7 +22,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -46,7 +45,7 @@ import com.mellowingfactory.wethm.ui.theme.pageGradient
 import com.mellowingfactory.wethm.ui.theme.white
 import com.mellowingfactory.wethm.ui.today.components.Graphics
 import com.mellowingfactory.wethm.ui.today.components.InfoCard
-import com.mellowingfactory.wethm.ui.today.components.PolygramText
+import com.mellowingfactory.wethm.ui.today.components.PolygonText
 import com.mellowingfactory.wethm.ui.today.components.TodayBottomSheet
 import com.mellowingfactory.wethm.ui.today.components.TodayHeader
 import com.mellowingfactory.wethm.ui.today.components.TodayToolbar
@@ -142,7 +141,7 @@ private fun MySleepContainer(state: TodayState) {
             }
             .drawWithContent {
                 drawContent()
-                PolygramText(textMeasurer)
+                PolygonText(textMeasurer)
             }) {
 
             Graphics(state.todayGraphicColor, state.todayGraphic, state.weekGraphic)
