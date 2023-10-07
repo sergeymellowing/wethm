@@ -265,16 +265,6 @@ private fun Info(state: TodayState) {
                         .background(blue200)
                 )
 
-
-//                Icon(
-//                    modifier = Modifier
-//                        .align(Alignment.Center)
-//                        .fillMaxHeight()
-//                        .padding(start = (width / 200) * 30),
-//                    painter = painterResource(id = R.drawable.ic_punktir),
-//                    contentDescription = null,
-//                    tint = white
-//                )
                 DashedDivider(
                     modifier = Modifier
                         .align(Alignment.Center)
@@ -288,16 +278,6 @@ private fun Info(state: TodayState) {
                         .fillMaxHeight()
                         .padding(end = (width / 200) * 30),
                 )
-
-//                Icon(
-//                    modifier = Modifier
-//                        .align(Alignment.Center)
-//                        .fillMaxHeight()
-//                        .padding(end = (width / 200) * 30),
-//                    painter = painterResource(id = R.drawable.ic_punktir),
-//                    contentDescription = null,
-//                    tint = white
-//                )
 
                 if (state.currentStatusValue > 0) {
                     val value = (width / 200) * state.currentStatusValue
