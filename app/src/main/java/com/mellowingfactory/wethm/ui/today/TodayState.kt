@@ -31,7 +31,8 @@ data class TodayState(
     val todayAvgStr: String = todayAvg.toString(),
     val todayGraphicColor: List<Color> = todayColor(todayAvg),
     val weekAvgDif: Int = todayGraphic.average().toInt() - weekGraphic.average().toInt(),
-    val gData: List<Pair<Int, Int>> = gData(todayGraphic, weekGraphic)
+    val gData: List<Pair<Int, Int>> = gData(todayGraphic, weekGraphic),
+    val isEmpty: Boolean = weekGraphic.all { it == 0 } && todayGraphic.all { it == 0 } || weekGraphic.isEmpty() && todayGraphic.isEmpty()
 )
 
 private fun gData(todayGraphic: List<Int>, weekGraphic: List<Int>): List<Pair<Int, Int>> {

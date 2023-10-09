@@ -134,12 +134,12 @@ private fun MySleepContainer(state: TodayState) {
         Box(modifier = Modifier
             .fillMaxWidth()
             .padding(top = 36.dp)
-            .width(300.dp)
+            .width(250.dp)
             .height(250.dp)
             .drawWithContent {
                 if (size.height > 0){
                     drawContent()
-                    PolygonText(textMeasurer, gData)
+                    PolygonText(textMeasurer, gData,state.isEmpty)
                 }
 
             }

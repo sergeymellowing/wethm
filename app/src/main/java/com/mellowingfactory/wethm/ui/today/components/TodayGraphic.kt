@@ -74,7 +74,7 @@ fun BoxScope.Graphics(
 
         if (j == 1) {
             if (width > 0) {
-                if (!weekGraphic.all { it == 0 }){
+                if (!weekGraphic.all { it == 0 }) {
                     val weekShape = PolyShape(5, width, weekGraphic)
                     val weekColor by remember { mutableStateOf(Color(0x333BFFE6).copy(alpha = 0.2F)) }
                     Box(
@@ -93,7 +93,7 @@ fun BoxScope.Graphics(
 
                 }
 
-                if (!todayGraphic.all { it == 0 }){
+                if (!todayGraphic.all { it == 0 }) {
 
                     val todayShape = PolyShape(5, width, todayGraphic)
                     val sloganBrush = Brush.linearGradient(
@@ -148,109 +148,185 @@ private fun DrawScope.drawTextWithStyle(
 }
 
 
-fun ContentDrawScope.PolygonText(textMeasurer: TextMeasurer, data: List<Pair<String,VectorPainter>>) {
+fun ContentDrawScope.PolygonText(
+    textMeasurer: TextMeasurer,
+    data: List<Pair<String, VectorPainter>>,
+    isEmpty: Boolean
+) {
     try {
         val width = size.width
         val p = polygamyPoints(width, center.x, center.y)
 
         p.forEachIndexed { index, it ->
-            val painter  = data[index].second
-            val text  = data[index].first
+            val painter = data[index].second
+            val text = data[index].first
             val logoHeight = painter.intrinsicSize.height
             val logoWidth = painter.intrinsicSize.width
             when (index) {
                 0 -> {
-                    translate(
-                        left = it.first - logoWidth / 2,
-                        top = it.second - logoHeight
-                    ) {
-                        with(painter) {
-                            draw(painter.intrinsicSize)
+                    if (!isEmpty) {
+                        translate(
+                            left = it.first - logoWidth / 2,
+                            top = it.second - logoHeight
+                        ) {
+                            with(painter) {
+                                draw(painter.intrinsicSize)
+                            }
                         }
                     }
+
+                    val textX = if (isEmpty) {
+                        val size = textMeasurer.measure(text)
+                        it.first - size.size.width/2
+                    } else
+                        it.first + painter.intrinsicSize.width + 4 - logoWidth / 2
+
+                    val textY = if (isEmpty) {
+                        it.second -  textMeasurer.measure(text).size.height / 4
+                    } else it.second - logoHeight + textMeasurer.measure(text).size.height / 4
                     drawTextWithStyle(
                         textMeasurer = textMeasurer,
                         text = text,
                         topLeft = Offset(
-                            x = it.first + painter.intrinsicSize.width + 4 - logoWidth / 2,
-                            y = it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+                            x = textX,
+                            y = textY
                         ),
                     )
                 }
 
                 1 -> {
-                    translate(
-                        left = it.first + logoWidth / 2,
-                        top = it.second - logoHeight
-                    ) {
-                        with(painter) {
-                            draw(painter.intrinsicSize)
+                    if (!isEmpty) {
+                        translate(
+                            left = it.first + logoWidth / 2,
+                            top = it.second - logoHeight
+                        ) {
+                            with(painter) {
+                                draw(painter.intrinsicSize)
+                            }
                         }
                     }
+                    val textX = if (isEmpty) {
+                        it.first - textMeasurer.measure(text).size.width / 5
+                    } else
+                        it.first + painter.intrinsicSize.width + 4 + logoWidth / 2
+
+
+                    val textY = if (isEmpty) {
+                        it.second
+                    } else
+                        it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+
+
                     drawTextWithStyle(
                         textMeasurer = textMeasurer,
                         text = text,
                         topLeft = Offset(
-                            x = it.first + painter.intrinsicSize.width + 4 + logoWidth / 2,
-                            y = it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+                            x = textX,
+                            y = textY
                         ),
                     )
                 }
 
                 2 -> {
-                    translate(
-                        left = it.first + logoWidth,
-                        top = it.second - logoHeight
-                    ) {
-                        with(painter) {
-                            draw(painter.intrinsicSize)
+                    if (!isEmpty) {
+                        translate(
+                            left = it.first + logoWidth,
+                            top = it.second - logoHeight
+                        ) {
+                            with(painter) {
+                                draw(painter.intrinsicSize)
+                            }
                         }
                     }
+
+
+                    val textX = if (isEmpty) {
+                        it.first
+                    } else
+                        it.first + painter.intrinsicSize.width + 4 + logoWidth
+
+
+                    val textY = if (isEmpty) {
+                        it.second - textMeasurer.measure(text).size.height * 1.5F
+                    } else
+                        it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+
+
                     drawTextWithStyle(
                         textMeasurer = textMeasurer,
                         text = text,
                         topLeft = Offset(
-                            x = it.first + painter.intrinsicSize.width + 4 + logoWidth,
-                            y = it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+                            x = textX,
+                            y = textY
                         ),
                     )
                 }
 
                 3 -> {
-                    translate(
-                        left = it.first - 2 * logoWidth,
-                        top = it.second - logoHeight
-                    ) {
-                        with(painter) {
-                            draw(painter.intrinsicSize)
+                    if (!isEmpty) {
+                        translate(
+                            left = it.first - 2 * logoWidth,
+                            top = it.second - logoHeight
+                        ) {
+                            with(painter) {
+                                draw(painter.intrinsicSize)
+                            }
                         }
                     }
+
+                    val textX = if (isEmpty) {
+                        it.first - textMeasurer.measure(text).size.width
+                    } else
+                        it.first - textMeasurer.measure(text).size.width - 2 * logoWidth
+
+
+                    val textY = if (isEmpty) {
+                        it.second - textMeasurer.measure(text).size.height
+                    } else
+                        it.second - logoHeight - textMeasurer.measure(text).size.height / 4
+
 
                     drawTextWithStyle(
                         textMeasurer = textMeasurer,
                         text = text,
                         topLeft = Offset(
-                            x = it.first - textMeasurer.measure(text).size.width - 2 * logoWidth,
-                            y = it.second - logoHeight - textMeasurer.measure(text).size.height / 4
+                            x = textX,
+                            y = textY
                         ),
                     )
                 }
 
                 4 -> {
-                    translate(
-                        left = it.first - logoWidth,
-                        top = it.second - logoHeight
-                    ) {
-                        with(painter) {
-                            draw(painter.intrinsicSize)
+                    if (!isEmpty) {
+                        translate(
+                            left = it.first - logoWidth,
+                            top = it.second - logoHeight
+                        ) {
+                            with(painter) {
+                                draw(painter.intrinsicSize)
+                            }
                         }
                     }
+
+                    val textX = if (isEmpty) {
+                        it.first - textMeasurer.measure(text).size.width/2  - textMeasurer.measure(text).size.width/4
+                    } else
+                        it.first - textMeasurer.measure(text).size.width - logoWidth / 2
+
+
+                    val textY = if (isEmpty) {
+                        it.second
+                    } else
+                        it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+
+
+
                     drawTextWithStyle(
                         textMeasurer = textMeasurer,
                         text = text,
                         topLeft = Offset(
-                            x = it.first - textMeasurer.measure(text).size.width - logoWidth/2,
-                            y = it.second - logoHeight + textMeasurer.measure(text).size.height / 4
+                            x = textX,
+                            y = textY
                         ),
                     )
                 }
