@@ -74,45 +74,52 @@ fun BoxScope.Graphics(
 
         if (j == 1) {
             if (width > 0) {
-                val weekShape = PolyShape(5, width, weekGraphic)
-                val weekColor by remember { mutableStateOf(Color(0x333BFFE6).copy(alpha = 0.2F)) }
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .width((boxSize - j * 40).dp)
-                        .height((boxSize - j * 40).dp)
-                        .graphicsLayer {
-                            width = size.width
-                            shape = PolyShape(5, width, weekGraphic)
-                            clip = true
-                        }
-                        .background(weekColor)
-                        .border(1.dp, weekColor.copy(alpha = 1F), weekShape)
-                )
+                if (!weekGraphic.all { it == 0 }){
+                    val weekShape = PolyShape(5, width, weekGraphic)
+                    val weekColor by remember { mutableStateOf(Color(0x333BFFE6).copy(alpha = 0.2F)) }
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .width((boxSize - j * 40).dp)
+                            .height((boxSize - j * 40).dp)
+                            .graphicsLayer {
+                                width = size.width
+                                shape = PolyShape(5, width, weekGraphic)
+                                clip = true
+                            }
+                            .background(weekColor)
+                            .border(1.dp, weekColor.copy(alpha = 1F), weekShape)
+                    )
+
+                }
+
+                if (!todayGraphic.all { it == 0 }){
+
+                    val todayShape = PolyShape(5, width, todayGraphic)
+                    val sloganBrush = Brush.linearGradient(
+                        colors = todayColor,
+                        start = Offset(75F, 32F),
+                        end = Offset(143F, 168F),
+                    )
 
 
-                val todayShape = PolyShape(5, width, todayGraphic)
-                val sloganBrush = Brush.linearGradient(
-                    colors = todayColor,
-                    start = Offset(75F, 32F),
-                    end = Offset(143F, 168F),
-                )
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .width((boxSize - j * 40).dp)
+                            .height((boxSize - j * 40).dp)
+                            .graphicsLayer {
+                                width = size.width
+                                shape = todayShape
+                                clip = true
+                            }
+                            .background(sloganBrush, todayShape, alpha = 0.5F)
+                            .border(1.dp, todayColor.last(), todayShape)
+
+                    )
+                }
 
 
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .width((boxSize - j * 40).dp)
-                        .height((boxSize - j * 40).dp)
-                        .graphicsLayer {
-                            width = size.width
-                            shape = todayShape
-                            clip = true
-                        }
-                        .background(sloganBrush, todayShape, alpha = 0.5F)
-                        .border(1.dp, todayColor.last(), todayShape)
-
-                )
             }
 
         }

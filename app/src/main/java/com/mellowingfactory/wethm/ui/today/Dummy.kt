@@ -91,6 +91,18 @@ val ellieRadar =
         listOf(85, 85, 85, 85, 85),
     )
 
+//val ellieRadar =
+//    listOf(
+//        listOf(70, 95, 98, 73, 90),
+//        listOf(89, 87, 95, 80, 99),
+//        listOf(70, 95, 98, 73, 90),
+//        listOf(70, 100, 100, 73, 90),
+//        listOf(70, 100, 100, 73, 90),
+//        listOf(85, 95, 98, 73, 90),
+//        listOf(70, 95, 98, 73, 90),
+//        listOf(0, 0, 0, 0, 0),
+//    )
+
 val ellieStatHeart = SignalResult(
     values = listOf(55, 64, 53, 51, 49, 69, 56).map { it.toDouble() },
     variability = listOf(),
@@ -152,8 +164,8 @@ val ellie = StatisticsResponse(
     /**
      * Graphics
      */
-    radarValues = List(7) { List(5) {0} },
-//    radarValues = ellieRadar,
+//    radarValues = List(7) { List(5) {0} },
+    radarValues = ellieRadar,
     /**
      *
      */
