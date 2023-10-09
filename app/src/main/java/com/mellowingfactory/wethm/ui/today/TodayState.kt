@@ -48,12 +48,14 @@ private fun gData(todayGraphic: List<Int>, weekGraphic: List<Int>): List<Pair<In
         val absDiff = abs(dif)
         val logo = if (dif > 0) {
             if (absDiff > 10) R.drawable.ic_good_level_3
-            if (absDiff > 5) R.drawable.ic_good_level_2
-            else R.drawable.ic_good_level_1
+            else if (absDiff > 5) R.drawable.ic_good_level_2
+            else if (absDiff > 0) R.drawable.ic_good_level_1
+            else R.drawable.ic_blank
         } else {
             if (absDiff > 10) R.drawable.ic_bad_level_3
-            if (absDiff > 5) R.drawable.ic_bad_level_2
-            else R.drawable.ic_bad_level_1
+            else if (absDiff > 5) R.drawable.ic_bad_level_2
+            else if (absDiff > 0) R.drawable.ic_bad_level_1
+            else R.drawable.ic_blank
         }
         Pair(texts[index], logo)
     }

@@ -15,6 +15,7 @@ fun polygamy(
     percent: List<Int> = listOf(100, 100, 100, 100, 100)
 ): Path {
     val path = Path()
+    if (percent.all { it == 0 }) return path
     val center = width / 2
     val cx = center
     val cy = center

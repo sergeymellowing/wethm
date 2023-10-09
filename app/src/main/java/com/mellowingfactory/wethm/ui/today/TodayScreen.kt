@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -119,12 +120,8 @@ private fun MySleepContainer(state: TodayState) {
             .padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        var points by remember {
-            mutableStateOf(listOf<Pair<Float, Float>>())
-        }
-        var size by remember {
-            mutableStateOf(IntSize.Zero)
-        }
+
+
         val textMeasurer = rememberTextMeasurer()
         val status = state.status
         val context = LocalContext.current
@@ -138,17 +135,13 @@ private fun MySleepContainer(state: TodayState) {
             .fillMaxWidth()
             .padding(top = 36.dp)
             .width(300.dp)
-            .onGloballyPositioned {
-                size = it.size
-                points = polygamyPoints(
-                    it.size.width.toFloat(),
-                    it.size.center.x.toFloat(),
-                    it.size.center.y.toFloat()
-                )
-            }
+            .height(250.dp)
             .drawWithContent {
-                drawContent()
-                PolygonText(textMeasurer, gData)
+                if (size.height > 0){
+                    drawContent()
+                    PolygonText(textMeasurer, gData)
+                }
+
             }
 
         ) {

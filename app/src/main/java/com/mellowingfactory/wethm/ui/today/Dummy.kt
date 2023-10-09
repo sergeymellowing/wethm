@@ -152,7 +152,8 @@ val ellie = StatisticsResponse(
     /**
      * Graphics
      */
-    radarValues = ellieRadar,
+    radarValues = List(7) { List(5) {0} },
+//    radarValues = ellieRadar,
     /**
      *
      */
